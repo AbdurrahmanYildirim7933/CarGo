@@ -1,6 +1,10 @@
 package com.mantis.data.dto;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Id;
+
 public class UserDTO {
+
     private int id;
     private String name;
     private String lastName;
