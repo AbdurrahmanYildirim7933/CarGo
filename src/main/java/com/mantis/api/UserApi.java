@@ -1,5 +1,6 @@
 package com.mantis.api;
 
+import com.mantis.data.dto.UserDTO;
 import com.mantis.data.entity.User;
 import com.mantis.mapper.UserMapper;
 import com.mantis.repositories.UserRepository;
@@ -21,10 +22,10 @@ public class UserApi {
     }
 
     @PostMapping("/create-user")
-    public ResponseEntity<User> createUser(@RequestBody User user)
+    public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO)
     {
-        User createdUser = userMapper.toEntity(userService.createUser(user));
-        return ResponseEntity.ok(createdUser);
+        UserDTO createdUserDTO = userService.createUser(userDTO);
+        return ResponseEntity.ok(createdUserDTO);
     }
 
     @DeleteMapping("/delete-user/{id}")
@@ -33,6 +34,11 @@ public class UserApi {
         return ResponseEntity.ok("User deleted successfully");
     }
 
+    @PutMapping("/update-user/{id}")
+    public ResponseEntity<UserDTO> updateUser(@PathVariable("id") Integer id, @RequestBody UserDTO userDTO) {
+        UserDTO updatedUserDTO = userService.updateUser(id, userDTO);
+        return ResponseEntity.ok(updatedUserDTO);
+    }
 
     /*@PostMapping("/get-user")
     public ResponseEntity getUserPost(@RequestBody UserDTO user){

@@ -20,12 +20,16 @@ public class UserService {
       return  this.userMapper.toDTO(userLogic.findById(id)) ;
     }
 
-    public UserDTO createUser(User user) {
-        return  this.userMapper.toDTO(userLogic.createUser(user)) ;
+    public UserDTO createUser(UserDTO userDTO) {
+        return  this.userMapper.toDTO(userLogic.createUser(userDTO)) ;
     }
 
     public void deleteUser(Integer id) {
         userLogic.deleteUser(id);
+    }
+
+    public UserDTO updateUser(Integer id, UserDTO userDTO) {
+        return userLogic.updateUser(id, userDTO);
     }
 
 
