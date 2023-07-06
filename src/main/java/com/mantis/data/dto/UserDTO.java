@@ -1,13 +1,11 @@
 package com.mantis.data.dto;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Id;
-
 public class UserDTO {
 
     private int id;
     private String name;
     private String lastName;
+    private String identityNumber;
 
     public int getId() {
         return id;
@@ -31,5 +29,13 @@ public class UserDTO {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getIdentityNumber() {
+        return identityNumber;
+    }
+
+    public void setIdentityNumber(String identityNumber) {
+        this.identityNumber = identityNumber;
     }
 }

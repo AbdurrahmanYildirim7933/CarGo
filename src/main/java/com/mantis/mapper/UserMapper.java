@@ -9,6 +9,7 @@ public class UserMapper {
         _user.setLastName(user.getLastName());
         _user.setName(user.getName());
         _user.setId(user.getId());
+        _user.setIdentityNumber(user.getIdentityNumber());
         return _user;
     }
 
