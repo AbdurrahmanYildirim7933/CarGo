@@ -17,14 +17,14 @@ public class UserApi {
     private UserMapper userMapper= new UserMapper();
     UserRepository userRepository;
     @GetMapping("/get-user")
-    public ResponseEntity getUser(@RequestParam(name = "id", required = false) Integer id) {
+    public ResponseEntity<UserDTO> getUser(@RequestParam(name = "id", required = false) Integer id) {
         return ResponseEntity.ok(userService.findById(id));
     }
 
     @PostMapping("/create-user")
-    public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO)
+    public ResponseEntity<UserDTO> createUser(@RequestBody User user)
     {
-        UserDTO createdUserDTO = userService.createUser(userDTO);
+        UserDTO createdUserDTO = userService.createUser(user);
         return ResponseEntity.ok(createdUserDTO);
     }
 
@@ -35,17 +35,10 @@ public class UserApi {
     }
 
     @PutMapping("/update-user/{id}")
-    public ResponseEntity<UserDTO> updateUser(@PathVariable("id") Integer id, @RequestBody UserDTO userDTO) {
-        UserDTO updatedUserDTO = userService.updateUser(id, userDTO);
+    public ResponseEntity<UserDTO> updateUser(@PathVariable("id") Integer id, @RequestBody User user) {
+        UserDTO updatedUserDTO = userService.updateUser(id, user);
         return ResponseEntity.ok(updatedUserDTO);
     }
 
-    /*@PostMapping("/get-user")
-    public ResponseEntity getUserPost(@RequestBody UserDTO user){
-        System.out.println(user.getName() +" "+user.getLastName());
-        user.setId(123);
-        return ResponseEntity.ok(user);
-    }
-     */
 
 }

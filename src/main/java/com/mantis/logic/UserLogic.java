@@ -1,14 +1,12 @@
 package com.mantis.logic;
 
-import com.mantis.data.dto.UserDTO;
+
 import com.mantis.data.entity.User;
 import com.mantis.mapper.UserMapper;
 import com.mantis.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.Optional;
 
 @Component
 public class UserLogic {
@@ -25,8 +23,8 @@ public class UserLogic {
         return null;
     }
 
-    public User createUser(UserDTO userDTO) {
-        return userRepository.save(userMapper.toEntity(userDTO));
+    public User createUser(User user) {
+        return userRepository.save(user);
     }
 
     public void deleteUser(Integer id) {
@@ -37,7 +35,7 @@ public class UserLogic {
         userRepository.deleteById(id);
     }
 
-    public UserDTO updateUser(Integer id, UserDTO userDTO) {
+    public User updateUser(Integer id, User user) {
         if (id == null || id == 0) {
             throw new RuntimeException("ID cannot be null");
         }
@@ -45,15 +43,14 @@ public class UserLogic {
         User existingUser = userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        existingUser.setName(userDTO.getName());
-        existingUser.setLastName(userDTO.getLastName());
-        existingUser.setIdentityNumber(userDTO.getIdentityNumber());
+        existingUser.setName(user.getName());
+        existingUser.setLastName(user.getLastName());
+        existingUser.setIdentityNumber(user.getIdentityNumber());
 
         User updatedUser = userRepository.save(existingUser);
 
-        return userMapper.toDTO(updatedUser);
+        return updatedUser;
     }
-
 
 
 
