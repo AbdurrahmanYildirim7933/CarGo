@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("api/v1/user")
 public class UserApi {
     @Autowired
-    UserService userService;
+    private UserService userService = new UserService();
     private UserMapper userMapper= new UserMapper();
     UserRepository userRepository;
     @GetMapping("/get-user")

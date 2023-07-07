@@ -16,11 +16,9 @@ public class UserLogic {
     private UserMapper userMapper = new UserMapper();
 
     public User findById(Integer id) {
-        if (id == null || id == 0) {
-            throw new RuntimeException("ID cannot be null");
-        }
 
-        return null;
+        return userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found"));
     }
 
     public User createUser(User user) {
