@@ -51,14 +51,6 @@ public class User {
         this.identityNumber = identityNumber;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", identityNumber='" + identityNumber + '\'' +
-                '}';
-    }
+
 
 }

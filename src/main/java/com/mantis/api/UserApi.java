@@ -17,7 +17,7 @@ public class UserApi {
     private UserMapper userMapper= new UserMapper();
     UserRepository userRepository;
     @GetMapping("/get-user")
-    public ResponseEntity<UserDTO> getUser(@RequestParam(name = "id", required = false) Integer id) {
+    public ResponseEntity<UserDTO> getUser(@RequestParam(name = "id", required=false) Integer id) {
         return ResponseEntity.ok(userService.findById(id));
     }
 
