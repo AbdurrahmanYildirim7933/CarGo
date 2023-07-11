@@ -2,6 +2,9 @@ package com.mantis.data.entity;
 
 import jakarta.persistence.*;
 import org.antlr.v4.runtime.misc.NotNull;
+
+import java.util.List;
+
 @Entity
 @Table(name="tbl_permission")
 public class Permission {
@@ -16,6 +19,9 @@ public class Permission {
     @Column(name = "description")
     @NotNull
     private String description;
+
+    @ManyToMany(mappedBy = "permissions")
+    private List<Role> roles;
 
     public Integer getId() {
         return id;

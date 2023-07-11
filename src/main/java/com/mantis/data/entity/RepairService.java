@@ -3,6 +3,8 @@ package com.mantis.data.entity;
 import jakarta.persistence.*;
 import org.antlr.v4.runtime.misc.NotNull;
 
+import java.util.List;
+
 @Entity
 @Table(name="tbl_repairService")
 public class RepairService {
@@ -16,6 +18,17 @@ public class RepairService {
     @Column(name="address")
     @NotNull
     private String address;
+
+    @OneToMany(mappedBy = "repairService")
+    private List<ServiceDutyRelation> serviceDutyRelations;
+
+    @OneToMany(mappedBy = "repairService")
+    private List<UserServiceRelation> userServiceRelations;
+
+    @OneToMany(mappedBy = "repairService")
+    private List<ServiceWorkers> serviceWorkers;
+
+
 
     public Integer getId() {
         return id;

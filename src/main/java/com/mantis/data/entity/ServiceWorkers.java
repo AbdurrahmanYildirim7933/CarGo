@@ -26,8 +26,12 @@ public class ServiceWorkers {
     @NotNull
     private String address;
 
+    @Column(name = "repair_service_id")
+    @NotNull
+    private Integer repairService_Id;
+
     @ManyToOne
-    @JoinColumn (name="service_id")
+    @JoinColumn (name="repairService_id")
     private RepairService repairService;
 
     public Integer getId() {

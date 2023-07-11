@@ -3,6 +3,10 @@ package com.mantis.data.entity;
 import jakarta.persistence.*;
 import org.antlr.v4.runtime.misc.NotNull;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 @Entity
 @Table(name = "tbl_shop")
 public class Shop {
@@ -16,6 +20,13 @@ public class Shop {
     @Column(name="address")
     @NotNull
     private String address;
+    @ManyToMany(mappedBy = "shops")
+    private List<User> users;
+    @OneToMany(mappedBy = "shop")
+    private List<Employee> employees;
+
+    @OneToMany(mappedBy = "shop")
+    private List<ProductShopRelation> productShopRelations;
 
     public Integer getId() {
         return id;

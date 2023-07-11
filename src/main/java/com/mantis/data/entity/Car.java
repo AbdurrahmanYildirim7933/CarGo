@@ -20,6 +20,9 @@ public class Car {
     @Column(name = "garage_id")
     @NotNull
     private Integer garageId;
+    @ManyToOne
+    @JoinColumn (name="garage_id")
+    private Garage garage;
 
     public Integer getId() {
         return id;

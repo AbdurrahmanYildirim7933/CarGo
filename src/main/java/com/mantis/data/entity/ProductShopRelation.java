@@ -23,6 +23,14 @@ public class ProductShopRelation {
     @Column(name="quantity")
     private Integer quantity;
 
+    @ManyToOne
+    @JoinColumn (name="shop_id")
+    private Shop shop;
+
+    @ManyToOne
+    @JoinColumn (name="product_id")
+    private Product product;
+
     public Integer getProduct_id() {
         return product_id;
     }

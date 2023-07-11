@@ -14,6 +14,14 @@ public class UserServiceRelation {
     @Column(name="price")
     private double price;
 
+    @ManyToOne
+    @JoinColumn (name="user_id")
+    private User user;
+
+    @ManyToOne
+    @JoinColumn (name="service_id")
+    private RepairService repairService;
+
     public Integer getUser_id() {
         return user_id;
     }

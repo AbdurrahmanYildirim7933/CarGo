@@ -2,6 +2,8 @@ package com.mantis.data.entity;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name="tbl_garage")
 public class Garage {
@@ -15,6 +17,13 @@ public class Garage {
     private String address;
     @Column(name="user_id")
     private Integer userId;
+
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @OneToMany(mappedBy = "garage")
+    private List<Car> cars;
 
     public Integer getId() {
         return id;

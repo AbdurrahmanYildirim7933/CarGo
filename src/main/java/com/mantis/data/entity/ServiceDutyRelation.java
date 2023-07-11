@@ -14,6 +14,13 @@ public class ServiceDutyRelation {
     private Integer service_id;
     @Column(name="price")
     private double price;
+    @ManyToOne
+    @JoinColumn (name="duty_id")
+    private Duty duty;
+
+    @ManyToOne
+    @JoinColumn (name="service_id")
+    private RepairService repairService;
 
     public Integer getDuty_id() {
         return duty_id;

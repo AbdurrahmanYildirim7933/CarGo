@@ -3,6 +3,8 @@ package com.mantis.data.entity;
 import jakarta.persistence.*;
 import org.antlr.v4.runtime.misc.NotNull;
 
+import java.util.List;
+
 @Entity
 @Table(name="tbl_duty")
 public class Duty {
@@ -13,6 +15,11 @@ public class Duty {
     @Column(name = "name")
     @NotNull
     private String name;
+
+    @OneToMany(mappedBy = "duty")
+    private List<ServiceDutyRelation> serviceDutyRelations;
+
+
 
     public Integer getId() {
         return id;

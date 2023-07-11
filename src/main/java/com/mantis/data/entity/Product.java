@@ -2,6 +2,9 @@ package com.mantis.data.entity;
 
 import jakarta.persistence.*;
 import org.antlr.v4.runtime.misc.NotNull;
+
+import java.util.List;
+
 @Entity
 @Table(name="tbl_product")
 public class Product {
@@ -18,6 +21,9 @@ public class Product {
     @Column(name="shop_id")
     @NotNull
     private Integer shopId;
+
+    @OneToMany(mappedBy = "shop")
+    private List<Product> products;
 
     public Integer getId() {
         return id;
