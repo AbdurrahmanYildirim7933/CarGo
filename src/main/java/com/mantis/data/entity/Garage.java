@@ -1,7 +1,9 @@
 package com.mantis.data.entity;
 
 import jakarta.persistence.*;
+import org.antlr.v4.runtime.misc.NotNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -15,15 +17,12 @@ public class Garage {
     private String garageName;
     @Column(name="address")
     private String address;
-    @Column(name="user_id")
-    private Integer userId;
 
-    @OneToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User owner;
 
-    @OneToMany(mappedBy = "garage")
-    private List<Car> cars;
 
     public Integer getId() {
         return id;
@@ -49,13 +48,11 @@ public class Garage {
         this.address = address;
     }
 
-    public Integer getUserId() {
-        return userId;
+    public User getOwner() {
+        return owner;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setOwner(User owner) {
+        this.owner = owner;
     }
-
-
 }
