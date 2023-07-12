@@ -26,6 +26,51 @@ public class RepairService {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "repairService")
     private List<UserRepairServiceRelation> userRepairServiceRelations;
 
+    public Integer getId() {
+        return id;
+    }
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<RepairServiceWorkers> getRepairServiceWorkers() {
+        return repairServiceWorkers;
+    }
+
+    public void setRepairServiceWorkers(List<RepairServiceWorkers> repairServiceWorkers) {
+        this.repairServiceWorkers = repairServiceWorkers;
+    }
+
+    public List<RepairServiceDutyRelation> getRepairServiceDutyRelations() {
+        return repairServiceDutyRelations;
+    }
+
+    public void setRepairServiceDutyRelations(List<RepairServiceDutyRelation> repairServiceDutyRelations) {
+        this.repairServiceDutyRelations = repairServiceDutyRelations;
+    }
+
+    public List<UserRepairServiceRelation> getUserRepairServiceRelations() {
+        return userRepairServiceRelations;
+    }
+
+    public void setUserRepairServiceRelations(List<UserRepairServiceRelation> userRepairServiceRelations) {
+        this.userRepairServiceRelations = userRepairServiceRelations;
+    }
 }

@@ -24,4 +24,35 @@ public class UserRepairServiceRelation {
         @JoinColumn(name = "user_id", nullable = false)
         private User user;
 
+        public Integer getId() {
+                return id;
+        }
+
+        public void setId(Integer id) {
+                this.id = id;
+        }
+
+        public double getPrice() {
+                return price;
+        }
+
+        public void setPrice(double price) {
+                this.price = price;
+        }
+
+        public RepairService getRepairService() {
+                return repairService;
+        }
+
+        public void setRepairService(RepairService repairService) {
+                this.repairService = repairService;
+        }
+
+        public User getUser() {
+                return user;
+        }
+
+        public void setUser(User user) {
+                this.user = user;
+        }
 }

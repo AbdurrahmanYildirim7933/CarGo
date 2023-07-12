@@ -32,5 +32,59 @@ public class Shop {
                 inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"))
         private List<User> users;
 
+        public Integer getId() {
+                return id;
+        }
 
+        public void setId(Integer id) {
+                this.id = id;
+        }
+
+        public String getName() {
+                return name;
+        }
+
+        public void setName(String name) {
+                this.name = name;
+        }
+
+        public String getAddress() {
+                return address;
+        }
+
+        public void setAddress(String address) {
+                this.address = address;
+        }
+
+        public Integer getPhone() {
+                return phone;
+        }
+
+        public void setPhone(Integer phone) {
+                this.phone = phone;
+        }
+
+        public List<Employee> getEmployees() {
+                return Employees;
+        }
+
+        public void setEmployees(List<Employee> employees) {
+                Employees = employees;
+        }
+
+        public List<ProductShopRelation> getProductShopRelations() {
+                return productShopRelations;
+        }
+
+        public void setProductShopRelations(List<ProductShopRelation> productShopRelations) {
+                this.productShopRelations = productShopRelations;
+        }
+
+        public List<User> getUsers() {
+                return users;
+        }
+
+        public void setUsers(List<User> users) {
+                this.users = users;
+        }
 }

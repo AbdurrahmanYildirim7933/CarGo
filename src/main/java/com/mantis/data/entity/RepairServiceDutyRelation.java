@@ -24,4 +24,35 @@ public class RepairServiceDutyRelation {
     @JoinColumn(name = "duty_id", nullable = false)
     private Duty duty;
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public RepairService getRepairService() {
+        return repairService;
+    }
+
+    public void setRepairService(RepairService repairService) {
+        this.repairService = repairService;
+    }
+
+    public Duty getDuty() {
+        return duty;
+    }
+
+    public void setDuty(Duty duty) {
+        this.duty = duty;
+    }
 }

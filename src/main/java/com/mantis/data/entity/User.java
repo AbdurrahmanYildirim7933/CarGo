@@ -87,4 +87,36 @@ public class User {
     public void setPhone(String phone) {
         this.phone = phone;
     }
+
+    public List<Garage> getGarages() {
+        return garages;
+    }
+
+    public void setGarages(List<Garage> garages) {
+        this.garages = garages;
+    }
+
+    public List<UserRepairServiceRelation> getUserRepairServiceRelations() {
+        return userRepairServiceRelations;
+    }
+
+    public void setUserRepairServiceRelations(List<UserRepairServiceRelation> userRepairServiceRelations) {
+        this.userRepairServiceRelations = userRepairServiceRelations;
+    }
+
+    public List<Shop> getShops() {
+        return shops;
+    }
+
+    public void setShops(List<Shop> shops) {
+        this.shops = shops;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
 }
