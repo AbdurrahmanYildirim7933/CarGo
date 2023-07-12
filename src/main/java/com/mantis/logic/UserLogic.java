@@ -44,6 +44,7 @@ public class UserLogic {
         existingUser.setName(user.getName());
         existingUser.setLastName(user.getLastName());
         existingUser.setIdentityNumber(user.getIdentityNumber());
+        existingUser.setPhone(user.getPhone());
 
         User updatedUser = userRepository.save(existingUser);
 
