@@ -6,6 +6,7 @@ public class UserDTO {
     private String name;
     private String lastName;
     private String identityNumber;
+    private String phone;
 
     public int getId() {
         return id;
@@ -37,5 +38,13 @@ public class UserDTO {
 
     public void setIdentityNumber(String identityNumber) {
         this.identityNumber = identityNumber;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }

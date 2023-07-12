@@ -2,6 +2,7 @@ package com.mantis.data.entity;
 
 import jakarta.persistence.*;
 import org.antlr.v4.runtime.misc.NotNull;
+import org.hibernate.annotations.Fetch;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -21,12 +22,31 @@ public class User {
     @Column(name="last_name")
     @NotNull
     private String lastName;
+    @Column(name="phone")
+    private String phone;
     @Column(name="identity_number")
     private String identityNumber;
+
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "owner")
     private List<Garage> garages;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    private List<UserRepairServiceRelation> userRepairServiceRelations;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name="tbl_user_shop_relation",
+            joinColumns = @JoinColumn(name="user_id",referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "shop_id", referencedColumnName = "id"))
+    private List<Shop> shops;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name="tbl_user_role_relation",
+            joinColumns = @JoinColumn(name="user_id",referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+    private List<Role> roles;
 
     public Integer getId() {
         return id;
@@ -60,12 +80,11 @@ public class User {
         this.identityNumber = identityNumber;
     }
 
-    public List<Garage> getGarages() {
-        return garages;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setGarages(List<Garage> garages) {
-        this.garages = garages;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
-
 }
