@@ -23,10 +23,9 @@ public class UserApi {
     }
 
     @PostMapping("/create-user")
-    public ResponseEntity<UserDTO> createUser(@RequestBody User user)
+    public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO)
     {
-
-        UserDTO createdUserDTO = userService.createUser(user);
+        UserDTO createdUserDTO = userService.createUser(userDTO);
         return ResponseEntity.ok(createdUserDTO);
     }
 
@@ -37,8 +36,8 @@ public class UserApi {
     }
 
     @PutMapping("/update-user/{id}")
-    public ResponseEntity<UserDTO> updateUser(@PathVariable("id") Integer id, @RequestBody User user) {
-        UserDTO updatedUserDTO = userService.updateUser(id, user);
+    public ResponseEntity<UserDTO> updateUser(@PathVariable("id") Integer id, @RequestBody UserDTO userDTO) {
+        UserDTO updatedUserDTO = userService.updateUser(id, userDTO);
         return ResponseEntity.ok(updatedUserDTO);
     }
 
