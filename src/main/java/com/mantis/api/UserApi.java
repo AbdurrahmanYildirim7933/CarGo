@@ -25,9 +25,7 @@ public class UserApi {
     @PostMapping("/create-user")
     public ResponseEntity<UserDTO> createUser(@RequestBody User user)
     {
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        String hashedPassword = encoder.encode(user.getPassword());
-        user.setPassword(hashedPassword);
+
         UserDTO createdUserDTO = userService.createUser(user);
         return ResponseEntity.ok(createdUserDTO);
     }

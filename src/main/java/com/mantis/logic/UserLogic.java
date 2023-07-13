@@ -5,6 +5,7 @@ import com.mantis.data.entity.User;
 import com.mantis.mapper.UserMapper;
 import com.mantis.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 
@@ -22,6 +23,9 @@ public class UserLogic {
     }
 
     public User createUser(User user) {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        String hashedPassword = encoder.encode(user.getPassword());
+        user.setPassword(hashedPassword);
         return userRepository.save(user);
     }
 
