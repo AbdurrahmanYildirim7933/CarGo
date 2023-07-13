@@ -7,6 +7,7 @@ import com.mantis.repositories.UserRepository;
 import com.mantis.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -24,6 +25,9 @@ public class UserApi {
     @PostMapping("/create-user")
     public ResponseEntity<UserDTO> createUser(@RequestBody User user)
     {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        String hashedPassword = encoder.encode(user.getPassword());
+        user.setPassword(hashedPassword);
         UserDTO createdUserDTO = userService.createUser(user);
         return ResponseEntity.ok(createdUserDTO);
     }

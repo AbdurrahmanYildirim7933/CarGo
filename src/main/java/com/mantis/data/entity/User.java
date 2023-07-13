@@ -3,6 +3,8 @@ package com.mantis.data.entity;
 import jakarta.persistence.*;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.hibernate.annotations.Fetch;
+import org.springframework.lang.NonNull;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -26,6 +28,12 @@ public class User {
     private String phone;
     @Column(name="identity_number")
     private String identityNumber;
+
+
+
+    @NotNull
+    @Column(name="password")
+    private String password;
 
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "owner")
@@ -118,5 +126,12 @@ public class User {
 
     public void setRoles(List<Role> roles) {
         this.roles = roles;
+    }
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

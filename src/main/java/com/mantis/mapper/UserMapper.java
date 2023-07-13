@@ -21,6 +21,7 @@ public class UserMapper {
         _user.setId(user.getId());
         _user.setIdentityNumber(user.getIdentityNumber());
         _user.setPhone(user.getPhone());
+
         return _user;
 
     }
