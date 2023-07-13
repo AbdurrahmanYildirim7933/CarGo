@@ -26,11 +26,11 @@ public class User {
     private String lastName;
     @Column(name="phone")
     private String phone;
-    @Column(name="identity_number")
+    @Column(name="identity_number", unique = true)
     private String identityNumber;
 
     @NotNull
-    @Column(name="email")
+    @Column(name="email", unique = true)
     private String email;
 
     @NotNull
