@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.security.SecureRandom;
+
 
 @Component
 public class UserLogic {
@@ -23,8 +25,9 @@ public class UserLogic {
     }
 
     public User createUser(User user) {
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(10);
         String hashedPassword = encoder.encode(user.getPassword());
+        System.out.println(hashedPassword);
         user.setPassword(hashedPassword);
         return userRepository.save(user);
     }

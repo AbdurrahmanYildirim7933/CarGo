@@ -2,13 +2,15 @@ package com.mantis.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
-public class SecurityConfig {
+public class SecurityConfig{
  @Bean
  public BCryptPasswordEncoder passwordEncoder() {
      return new BCryptPasswordEncoder();
@@ -22,11 +24,4 @@ public class SecurityConfig {
 
  }
 
-/* public AuthenticationManager authenticationManager(UserDetailsService detailsService)
- {
-     DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
-     daoAuthenticationProvider.setUserDetailsService(detailsService);
-     return new ProviderManager(daoAuthenticationProvider);
- }
-*/
 }

@@ -1,4 +1,4 @@
-package com.mantis;
+package com.mantis.common;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
