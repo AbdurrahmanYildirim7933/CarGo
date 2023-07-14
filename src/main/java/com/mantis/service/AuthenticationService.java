@@ -14,7 +14,7 @@ public class AuthenticationService {
  private AuthorizationLogic authorizationLogic;
  private UserMapper userMapper = new UserMapper();
 
-    public boolean login(UserDTO user)
+    public String login(UserDTO user)
     {
         return (authorizationLogic.login(userMapper.toEntity(user)));
     }
