@@ -1,5 +1,7 @@
 package com.mantis;
 
+import com.mantis.common.enums.EPermission;
+import com.mantis.data.entity.Permission;
 import com.mantis.data.entity.Role;
 import com.mantis.data.entity.User;
 import io.jsonwebtoken.Jwts;
@@ -41,11 +43,20 @@ public class JwtTokenUtil {
         claims.put("phone",user.getPhone());
         List<Role> roles = user.getRoles();
         List<String> roleNames = new ArrayList<>();
+        List<Permission> temp = new ArrayList<>();
+        List<String> perms = new ArrayList<>();
         for (Role role : roles) {
             String roleName = role.getName();
             roleNames.add(roleName);
+            temp = role.getPermissions();
+            for(Permission permission: temp)
+            {
+                EPermission permissionName = permission.getName();
+                perms.add(permissionName.toString());
+            }
         }
         claims.put("roles",roleNames);
+        claims.put("perms",perms);
         return Jwts.builder()
                 .setClaims(claims)
                 .setSubject(user.getEmail())

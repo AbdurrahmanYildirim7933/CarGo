@@ -9,7 +9,6 @@ public static String hashPw(String pw){
     return hashedPassword;
 }
 
-    //permission token'a ekle
     //token kullanarak request atma
     //hasAuthority
     //filter chain

@@ -1,5 +1,6 @@
 package com.mantis.data.entity;
 
+import com.mantis.common.enums.EPermission;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -12,8 +13,9 @@ public class Permission {
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         @Column(name = "id")
         private Integer id;
-        @Column(name = "name")
-        private String name;
+        @Enumerated(EnumType.STRING)
+        @Column(name = "name", unique = true)
+        private EPermission name;
         @Column(name = "description")
         private String description;
 
@@ -32,11 +34,11 @@ public class Permission {
                 this.id = id;
         }
 
-        public String getName() {
+        public EPermission getName() {
                 return name;
         }
 
-        public void setName(String name) {
+        public void setName(EPermission name) {
                 this.name = name;
         }
 
