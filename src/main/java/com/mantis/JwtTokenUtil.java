@@ -4,8 +4,10 @@ import com.mantis.common.enums.EPermission;
 import com.mantis.data.entity.Permission;
 import com.mantis.data.entity.Role;
 import com.mantis.data.entity.User;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.io.Encoders;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
@@ -65,4 +67,15 @@ public class JwtTokenUtil {
                 .signWith(SignatureAlgorithm.HS512,secretKey )
                 .compact();
     }
+
+    String extractUserIdFromToken(String token) {
+        try {
+            SecretKey secret = Keys.hmacShaKeyFor(Decoders.BASE64.decode(secretKey));
+            Claims claims = Jwts.parserBuilder().setSigningKey(secret).build().parseClaimsJws(token).getBody();
+            return claims.get("userId", String.class);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to extract user ID from token");
+        }
+    }
+
 }
