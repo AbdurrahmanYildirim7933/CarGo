@@ -17,6 +17,7 @@ import org.springframework.security.crypto.keygen.KeyGenerators;
 import javax.crypto.SecretKey;
 import java.security.SecureRandom;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 
 public class JwtTokenUtil {
@@ -24,8 +25,7 @@ public class JwtTokenUtil {
 //     @Value("${spring.jwt.secret}")
     private String secretKey = "TG9yZW1JcHN1bWpkaXpnaXZlYmFza8SxZW5kw7xzdHJpc2luZGVrdWxsYW7EsWxhbm3EsWfEsXJtZXRpbmxlcmRpcmxM";
 
-    @Value("${jwt.expiration}")
-    private long expiration;
+    private long expiration=999999;
             //=15 * 60;
     private static final SecureRandom secureRandom = new SecureRandom(); //threadsafe
     private static final Base64.Encoder base64Encoder = Base64.getUrlEncoder();
@@ -63,7 +63,7 @@ public class JwtTokenUtil {
                 .setClaims(claims)
                 .setSubject(user.getEmail())
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + expiration * 1000))
+                .setExpiration(new Date(new Date().getTime() + TimeUnit.HOURS.toMillis(4)))
                 .signWith(SignatureAlgorithm.HS512,secretKey )
                 .compact();
     }
@@ -74,7 +74,7 @@ public class JwtTokenUtil {
             Claims claims = Jwts.parserBuilder().setSigningKey(secret).build().parseClaimsJws(token).getBody();
             return claims.get("userId", String.class);
         } catch (Exception e) {
-            throw new RuntimeException("Failed to extract user ID from token");
+            throw new RuntimeException("Failed to extract user ID from token",e);
         }
     }
 
