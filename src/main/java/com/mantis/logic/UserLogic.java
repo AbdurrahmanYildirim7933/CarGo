@@ -1,20 +1,25 @@
 package com.mantis.logic;
 
 
+import com.mantis.data.entity.Role;
 import com.mantis.data.entity.User;
 import com.mantis.mapper.UserMapper;
+import com.mantis.repositories.RoleRepository;
 import com.mantis.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import java.security.SecureRandom;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Component
 public class UserLogic {
 @Autowired
     UserRepository userRepository;
+@Autowired
+    RoleRepository roleRepository;
 
     private UserMapper userMapper = new UserMapper();
 
@@ -25,10 +30,12 @@ public class UserLogic {
     }
 
     public User createUser(User user) {
+        List<Role> roles = new ArrayList();
+        roles.add(roleRepository.findRoleByName("User"));
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(10);
         String hashedPassword = encoder.encode(user.getPassword());
-        System.out.println(hashedPassword);
         user.setPassword(hashedPassword);
+        user.setRoles(roles);
         return userRepository.save(user);
     }
 

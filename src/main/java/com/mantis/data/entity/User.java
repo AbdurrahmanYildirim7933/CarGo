@@ -37,7 +37,6 @@ public class User {
     @Column(name="password")
     private String password;
 
-
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "owner")
     private List<Garage> garages;
 
@@ -126,9 +125,8 @@ public class User {
         return roles;
     }
 
-    public void setRoles(List<Role> roles) {
-        this.roles = roles;
-    }
+    public void setRoles(List<Role> roles) { this.roles = roles;    }
+
     public String getPassword() {
         return password;
     }

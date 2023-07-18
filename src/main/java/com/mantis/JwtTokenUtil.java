@@ -1,5 +1,6 @@
 package com.mantis;
 
+import com.mantis.data.entity.Role;
 import com.mantis.data.entity.User;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -11,10 +12,7 @@ import org.springframework.security.crypto.keygen.KeyGenerators;
 
 import javax.crypto.SecretKey;
 import java.security.SecureRandom;
-import java.util.Base64;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 
 public class JwtTokenUtil {
@@ -36,6 +34,18 @@ public class JwtTokenUtil {
 
     public String generateToken(User user) {
         Map<String, Object> claims = new HashMap<>();
+        claims.put("userId",user.getId());
+        claims.put("name",user.getName());
+        claims.put("lastName",user.getLastName());
+        claims.put("email",user.getEmail());
+        claims.put("phone",user.getPhone());
+        List<Role> roles = user.getRoles();
+        List<String> roleNames = new ArrayList<>();
+        for (Role role : roles) {
+            String roleName = role.getName();
+            roleNames.add(roleName);
+        }
+        claims.put("roles",roleNames);
         return Jwts.builder()
                 .setClaims(claims)
                 .setSubject(user.getEmail())

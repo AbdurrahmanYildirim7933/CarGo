@@ -23,7 +23,6 @@ public class AuthorizationLogic {
             String dbPw = userRepository.findUserByEmail(user.getEmail()).getPassword();
             if (matcher.matches(user.getPassword(), dbPw)) {
                 String token = generateJwtToken(user.getEmail());
-                // Token'i döndür
                 return token;
             }else {
                 throw new RuntimeException("Hatalı Şifre");

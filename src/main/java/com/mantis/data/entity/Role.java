@@ -12,7 +12,7 @@ public class Role {
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         @Column(name = "id")
         private Integer id;
-        @Column(name = "name")
+        @Column(name = "name",unique = true)
         private String name;
         @Column(name = "description")
         private String description;
@@ -70,4 +70,7 @@ public class Role {
         public void setPermissions(List<Permission> permissions) {
                 this.permissions = permissions;
         }
+
+
+
 }
