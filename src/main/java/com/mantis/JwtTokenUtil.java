@@ -15,9 +15,11 @@ import org.springframework.security.crypto.keygen.KeyGenerators;
 
 
 import javax.crypto.SecretKey;
+import java.security.Key;
 import java.security.SecureRandom;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Function;
 
 
 public class JwtTokenUtil {
@@ -38,7 +40,7 @@ public class JwtTokenUtil {
 
     public String generateToken(User user) {
         Map<String, Object> claims = new HashMap<>();
-        claims.put("userId",user.getId());
+        claims.put("id",user.getId());
         claims.put("name",user.getName());
         claims.put("lastName",user.getLastName());
         claims.put("email",user.getEmail());
@@ -68,14 +70,17 @@ public class JwtTokenUtil {
                 .compact();
     }
 
-    String extractUserIdFromToken(String token) {
-        try {
-            SecretKey secret = Keys.hmacShaKeyFor(Decoders.BASE64.decode(secretKey));
-            Claims claims = Jwts.parserBuilder().setSigningKey(secret).build().parseClaimsJws(token).getBody();
-            return claims.get("userId", String.class);
-        } catch (Exception e) {
-            throw new RuntimeException("Failed to extract user ID from token",e);
-        }
+    Integer extractUserIdFromToken(String token) {
+        return getClaimFromToken(token, claims -> claims.get("userId", Integer.class));
+    }
+
+    public <T> T getClaimFromToken(String token, Function<Claims, T> claimsResolver) {
+        final Claims claims = getAllClaimsFromToken(token);
+        return claimsResolver.apply(claims);
+    }
+
+    private Claims getAllClaimsFromToken(String token) {
+        return Jwts.parserBuilder().setSigningKey(secretKey).build().parseClaimsJws(token).getBody();
     }
 
 }

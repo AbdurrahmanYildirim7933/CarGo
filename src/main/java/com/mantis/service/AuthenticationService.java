@@ -1,5 +1,6 @@
 package com.mantis.service;
 
+import com.mantis.JwtTokenUtil;
 import com.mantis.data.dto.UserDTO;
 import com.mantis.logic.AuthorizationLogic;
 import com.mantis.mapper.UserMapper;
@@ -18,5 +19,6 @@ public class AuthenticationService {
     {
         return (authorizationLogic.login(userMapper.toEntity(user)));
     }
+
 
 }

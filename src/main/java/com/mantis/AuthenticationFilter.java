@@ -15,11 +15,11 @@ import org.springframework.web.filter.OncePerRequestFilter;
         JwtTokenUtil jwtTokenUtil = new JwtTokenUtil();
         String token = request.getHeader("Authorization");
 
-        String userId = null;
+        Integer id = null;
         if (token != null && token.startsWith("Bearer ")) {
             String tokenValue = token.substring(7);
-            userId = jwtTokenUtil.extractUserIdFromToken(tokenValue);
-            System.out.println(userId);
+            id = jwtTokenUtil.extractUserIdFromToken(tokenValue);
+            System.out.println(id);
         }
         chain.doFilter(request, response);
     }
