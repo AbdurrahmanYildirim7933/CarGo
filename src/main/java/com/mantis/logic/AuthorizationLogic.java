@@ -8,6 +8,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 
+import java.util.List;
+
 @Component
 public class AuthorizationLogic {
     @Autowired
@@ -37,4 +39,6 @@ public class AuthorizationLogic {
         String token = jwtTokenUtil.generateToken(user);
         return token;
     }
+
+
 }

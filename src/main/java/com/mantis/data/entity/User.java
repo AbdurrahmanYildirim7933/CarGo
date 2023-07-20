@@ -50,7 +50,7 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "shop_id", referencedColumnName = "id"))
     private List<Shop> shops;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany
     @JoinTable(
             name="tbl_user_role_relation",
             joinColumns = @JoinColumn(name="user_id",referencedColumnName = "id"),

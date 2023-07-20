@@ -7,6 +7,7 @@ import com.mantis.mapper.UserMapper;
 import com.mantis.repositories.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -20,10 +21,12 @@ public class UserService {
       return  this.userMapper.toDTO(userLogic.findById(id)) ;
     }
 
+    @PreAuthorize("hasAuthority('CREATE_USER')")
     public UserDTO createUser(UserDTO userDTO) {
         return  this.userMapper.toDTO(userLogic.createUser(userMapper.toEntity(userDTO))) ;
     }
 
+    @PreAuthorize("hasPermission('CREATE_USER')")
     public void deleteUser(Integer id) {
         userLogic.deleteUser(id);
     }

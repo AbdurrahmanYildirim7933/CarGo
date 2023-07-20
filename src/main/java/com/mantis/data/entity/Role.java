@@ -17,12 +17,6 @@ public class Role {
         @Column(name = "description")
         private String description;
 
-        @ManyToMany(fetch = FetchType.LAZY)
-        @JoinTable(
-                name="tbl_user_role_relation",
-                joinColumns = @JoinColumn(name="role_id",referencedColumnName = "id"),
-                inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"))
-        private List<User> users;
 
         @ManyToMany(fetch = FetchType.LAZY)
         @JoinTable(
@@ -55,13 +49,6 @@ public class Role {
                 this.description = description;
         }
 
-        public List<User> getUsers() {
-                return users;
-        }
-
-        public void setUsers(List<User> users) {
-                this.users = users;
-        }
 
         public List<Permission> getPermissions() {
                 return permissions;

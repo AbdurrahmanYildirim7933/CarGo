@@ -7,6 +7,8 @@ import com.mantis.repositories.UserRepository;
 import com.mantis.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,6 +27,9 @@ public class UserApi {
     @PostMapping("/create-user")
     public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO)
     {
+        UserDetails userDetails =
+                (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        System.out.println("userDetails = " + userDetails);
         UserDTO createdUserDTO = userService.createUser(userDTO);
         return ResponseEntity.ok(createdUserDTO);
     }
