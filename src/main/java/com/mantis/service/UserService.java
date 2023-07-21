@@ -21,16 +21,16 @@ public class UserService {
       return  this.userMapper.toDTO(userLogic.findById(id)) ;
     }
 
-    @PreAuthorize("hasAuthority('CREATE_USER')")
     public UserDTO createUser(UserDTO userDTO) {
         return  this.userMapper.toDTO(userLogic.createUser(userMapper.toEntity(userDTO))) ;
     }
 
-    @PreAuthorize("hasPermission('CREATE_USER')")
+    @PreAuthorize("hasAuthority('DELETE_USER')")
     public void deleteUser(Integer id) {
         userLogic.deleteUser(id);
     }
 
+    @PreAuthorize("hasAuthority('UPDATE_USER')")
     public UserDTO updateUser(Integer id, UserDTO userDTO) {
         return userMapper.toDTO(userLogic.updateUser(id, userMapper.toEntity(userDTO)));
     }

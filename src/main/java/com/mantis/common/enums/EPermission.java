@@ -7,4 +7,5 @@ public enum EPermission {
     CREATE_ROLE,
     DELETE_ROLE,
     UPDATE_ROLE,
+    CREATE_PERMISSION
 }
