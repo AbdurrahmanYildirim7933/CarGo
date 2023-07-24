@@ -2,6 +2,7 @@ package com.mantis.config;
 
 import com.fasterxml.jackson.core.filter.TokenFilter;
 import com.mantis.AuthenticationFilter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -18,23 +19,19 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableMethodSecurity
 public class SecurityConfig{
 
+    @Autowired AuthenticationFilter  authenticationFilter;
     @Bean
  public BCryptPasswordEncoder passwordEncoder() {
      return new BCryptPasswordEncoder();
  }
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
 
-@Bean
- public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
-     return http
-             .csrf(AbstractHttpConfigurer::disable)
-             .authorizeHttpRequests(auth -> auth.requestMatchers("api/v1/auth/login","api/v1/user/create-user").permitAll().anyRequest().authenticated()).build();
- }
-/*
-return http
-             .csrf(AbstractHttpConfigurer::disable)
-             .authorizeHttpRequests(auth -> auth.requestMatchers("api/v1/auth/login","api/v1/user/create-user").permitAll().anyRequest().authenticated()).addFilterBefore(
-                     new AuthenticationFilter(), BearerTokenAuthenticationFilter.class
-             ).build();
- */
+        return http
+                .csrf(AbstractHttpConfigurer::disable)
+                .authorizeHttpRequests(auth -> auth.requestMatchers("api/v1/auth/login","api/v1/user/create-user").permitAll().anyRequest().authenticated()).addFilterBefore(
+                        authenticationFilter, BearerTokenAuthenticationFilter.class
+                ).build();
+    }
 
 }
