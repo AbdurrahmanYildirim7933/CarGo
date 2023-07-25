@@ -60,7 +60,7 @@ import java.util.List;
             SecurityContextHolder.getContext().setAuthentication(authenticationToken);
 
         }
-        chain.doFilter(request, response);
+            chain.doFilter(request, response);
     }
 
 

@@ -29,9 +29,13 @@ public class SecurityConfig{
 
         return http
                 .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(auth -> auth.requestMatchers("api/v1/auth/login","api/v1/user/create-user").permitAll().anyRequest().authenticated()).addFilterBefore(
+                .authorizeHttpRequests(auth ->
+                        auth.requestMatchers("api/v1/auth/login",
+                                        "api/v1/user/create-user","api/v1/email/verify")
+                                .permitAll().anyRequest().authenticated()).addFilterBefore(
                         authenticationFilter, BearerTokenAuthenticationFilter.class
                 ).build();
+
     }
 
 }

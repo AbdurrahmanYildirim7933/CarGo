@@ -11,6 +11,8 @@ public class UserMapper {
         _user.setId(user.getId());
         _user.setPhone(user.getPhone());
         _user.setEmail(user.getEmail());
+        _user.setUserName(user.getUserName());
+
 
 
         return _user;
@@ -25,6 +27,8 @@ public class UserMapper {
         _user.setPhone(user.getPhone());
         _user.setEmail(user.getEmail());
         _user.setPassword(user.getPassword());
+        _user.setUserName(user.getUserName());
+
 
         return _user;
 

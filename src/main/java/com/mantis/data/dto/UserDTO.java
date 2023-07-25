@@ -10,6 +10,10 @@ public class UserDTO {
     private String email;
     private String password;
 
+
+
+    private String userName;
+
     public String getPassword() {
         return password;
     }
@@ -65,5 +69,12 @@ public class UserDTO {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }

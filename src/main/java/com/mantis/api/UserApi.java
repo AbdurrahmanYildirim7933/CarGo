@@ -12,6 +12,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.MessagingException;
+
 @RestController
 @RequestMapping("api/v1/user")
 public class UserApi {
@@ -29,8 +31,7 @@ public class UserApi {
 
     //private static final String EMAIL_REGEX = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
     @PostMapping("/create-user")
-    public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO)
-    {
+    public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO) throws MessagingException {
         //String email = userDTO.getEmail();
         // if (email.matches(EMAIL_REGEX)) {
         //UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();

@@ -1,15 +1,15 @@
 package com.mantis.data.entity;
 
+import com.mantis.logic.UserLogic;
 import jakarta.persistence.*;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.hibernate.annotations.Fetch;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.lang.NonNull;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.time.LocalDateTime;
+import java.util.*;
 
 @Entity
 @Table(name="tbl_user")
@@ -26,6 +26,10 @@ public class User {
     private String lastName;
     @Column(name="phone")
     private String phone;
+    @Column(name="user_name", unique = true)
+    private String userName;
+
+
     @Column(name="identity_number", unique = true)
     private String identityNumber;
 
@@ -36,12 +40,22 @@ public class User {
     @NotNull
     @Column(name="password")
     private String password;
+    private boolean isEmailVerified;
+    private String emailVerificationCode;
+    private Date verificationCodeExpiryDate;
+    private String VerificationToken;
+
+
+
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "owner")
     private List<Garage> garages;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private List<UserRepairServiceRelation> userRepairServiceRelations;
+    @Column(name = "created_date")
+    @CreatedDate
+    private LocalDateTime createdDate;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
@@ -69,6 +83,14 @@ public class User {
         return name;
     }
 
+    public LocalDateTime getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(LocalDateTime createdDate) {
+        this.createdDate = createdDate;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -81,12 +103,12 @@ public class User {
         this.lastName = lastName;
     }
 
-    public String getIdentityNumber() {
-        return identityNumber;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setIdentityNumber(String identityNumber) {
-        this.identityNumber = identityNumber;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getPhone() {
@@ -140,6 +162,59 @@ public class User {
     }
 
     public void setEmail(String email) {
+        if (UserLogic.isValidEmail(email)) {
+            this.email = email;
+        } else {
+            throw new IllegalArgumentException("Invalid email format");
+        }
         this.email = email;
+    }
+    public String getIdentityNumber() {
+        return identityNumber;
+    }
+
+    public void setIdentityNumber(String identityNumber) {
+        this.identityNumber = identityNumber;
+    }
+
+    public boolean isEmailVerified() {
+        return isEmailVerified;
+    }
+
+    public void setEmailVerified(boolean emailVerified) {
+        isEmailVerified = emailVerified;
+    }
+
+    public String getEmailVerificationCode() {
+        return emailVerificationCode;
+    }
+
+    public void setEmailVerificationCode(String emailVerificationCode) {
+        this.emailVerificationCode = emailVerificationCode;
+    }
+
+    public Date getVerificationCodeExpiryDate() {
+        return verificationCodeExpiryDate;
+    }
+
+    public void setVerificationCodeExpiryDate(Date verificationCodeExpiryDate) {
+        this.verificationCodeExpiryDate = verificationCodeExpiryDate;
+    }
+    public void generateVerificationCode() {
+        this.emailVerificationCode = UUID.randomUUID().toString();
+    }
+
+    public String getVerificationToken() {
+        return VerificationToken;
+    }
+
+
+    public void setVerificationToken(String verificationToken) {
+        VerificationToken = verificationToken;
+    }
+
+    @PrePersist
+    private void beforePersist(){
+        this.setCreatedDate(LocalDateTime.now());
     }
 }

@@ -10,18 +10,34 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.mail.MessagingException;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 @Component
 public class UserLogic {
-@Autowired
+    @Autowired
     UserRepository userRepository;
-@Autowired
+    @Autowired
     RoleRepository roleRepository;
+    @Autowired EmailLogic emailLogic;
 
     private UserMapper userMapper = new UserMapper();
+    private Map<String, User> users = new HashMap<>();
+    private final int EXPIRATION_TIME_IN_MINUTES = 5;
+
+    private static final String EMAIL_REGEX = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
+
+
+    public static boolean isValidEmail(String email) {
+        Pattern pattern = Pattern.compile(EMAIL_REGEX);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
+    }
 
     public User findById(Integer id) {
 
@@ -29,14 +45,42 @@ public class UserLogic {
                 .orElseThrow(() -> new RuntimeException("User not found"));
     }
 
-    public User createUser(User user) {
+    public User createUser(User user) throws MessagingException {
+
+        user = checkObjectValidation(user);
+        boolean isPaswordValid = checkPasswordValidation(user);
+        if (isPaswordValid) {
+            System.out.println("Password is valid.");
+        } else {
+            System.out.println("Password is not valid");
+        }
+
+
+
         List<Role> roles = new ArrayList();
         roles.add(roleRepository.findRoleByName("User"));
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(10);
         String hashedPassword = encoder.encode(user.getPassword());
         user.setPassword(hashedPassword);
         user.setRoles(roles);
-        return userRepository.save(user);
+
+
+        User newUser = userRepository.save(user);
+        emailLogic.sendEmail(newUser.getEmail(),"Doğrulama Hk.", newUser.getId());
+        return newUser;
+    }
+    public void setVerifiedById(Integer id){
+
+       User user =  userRepository.findById(id).get();
+        Duration duration = Duration.between(user.getCreatedDate(), LocalDateTime.now());
+        long minuteDifferent = duration.toMinutes();
+
+
+        int minuteDifferentInt = (int) minuteDifferent;
+        if (minuteDifferentInt>5){
+            throw new RuntimeException("Süre Aşımı");
+        }
+       user.setEmailVerified(true);
     }
 
     public void deleteUser(Integer id) {
@@ -65,6 +109,41 @@ public class UserLogic {
         return updatedUser;
     }
 
+    private User checkObjectValidation(User user) {
+        String firstName = user.getName();
+        if (firstName != null && !firstName.isEmpty()) {
+            firstName = firstName.substring(0, 1).toUpperCase() + firstName.substring(1).toLowerCase();
+        } else {
+            throw new RuntimeException("name must not be null ");
+        }
+        String lastName = user.getLastName();
+        if (lastName != null && !lastName.isEmpty()) {
+            lastName = lastName.toUpperCase();
+        } else {
+            throw new RuntimeException("name must not be null ");
+        }
+        user.setName(firstName);
+        user.setLastName(lastName);
 
 
-}
+        return user;
+    }
+
+    private boolean checkPasswordValidation(User user) {
+        String password = user.getPassword();
+        String passwordRegex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$";
+
+        return password.matches(passwordRegex);
+
+    }
+
+
+
+    }
+
+
+
+
+
+
+
