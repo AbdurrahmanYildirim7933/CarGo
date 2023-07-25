@@ -25,15 +25,12 @@ public class GarageLogic {
     public Garage createGarage(Garage garage)
     {
 
-        if(garage.getOwner() != null) {
-            if(garage.getOwner().getId() != null)
-            {
-                if(userRepository.existsById(garage.getOwner().getId())) {
-                    User user = userRepository.findById(garage.getOwner().getId()).orElseThrow();
+        if(garage.getOwner() != null && garage.getOwner().getId() != null) {
+                User user = userRepository.findById(garage.getOwner().getId()).orElse(null);
+                if(user != null) {
                     garage.setOwner(user);
                     return garageRepository.save(garage);
                 }
-            }
         }
         return null;
     }
