@@ -18,8 +18,8 @@ public class PermissionApi {
     @PostMapping("/create-permission")
     public ResponseEntity<PermissionDTO> createPermission(@RequestBody PermissionDTO permissionDTO)
     {
-        permissionService.createPermission(permissionDTO);
-        return ResponseEntity.ok(permissionDTO);
+        PermissionDTO createdPermissionDTO = permissionService.createPermission(permissionDTO);
+        return ResponseEntity.ok(createdPermissionDTO);
     }
 
 

@@ -1,30 +1,25 @@
 package com.mantis.data.entity;
 
 import jakarta.persistence.*;
-import org.antlr.v4.runtime.misc.NotNull;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name="tbl_garage")
-public class Garage {
+@Table(name="tbl_brand")
+public class Brand {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
-    @Column(name = "name", unique = true)
+    @Column(name = "name")
     private String name;
 
-    @NotNull
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
-    private User owner;
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "garage")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "brand")
     private List<Car> cars;
 
-
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "brand")
+    private List<Model> models;
 
     public Integer getId() {
         return id;
@@ -42,14 +37,6 @@ public class Garage {
         this.name = name;
     }
 
-    public User getOwner() {
-        return owner;
-    }
-
-    public void setOwner(User owner) {
-        this.owner = owner;
-    }
-
     public List<Car> getCars() {
         return cars;
     }
@@ -57,6 +44,12 @@ public class Garage {
     public void setCars(List<Car> cars) {
         this.cars = cars;
     }
+
+    public List<Model> getModels() {
+        return models;
+    }
+
+    public void setModels(List<Model> models) {
+        this.models = models;
+    }
 }
-
-

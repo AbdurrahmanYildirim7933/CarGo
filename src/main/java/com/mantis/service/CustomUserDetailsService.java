@@ -1,5 +1,6 @@
-package com.mantis;
+package com.mantis.service;
 
+import com.mantis.CustomUserDetails;
 import com.mantis.data.entity.User;
 import com.mantis.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

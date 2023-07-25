@@ -14,8 +14,8 @@ public class RoleApi {
 
     @PostMapping("/create-role")
     public ResponseEntity<RoleDTO> createRole(@RequestBody RoleDTO roleDTO) {
-        roleService.createRole(roleDTO);
-        return ResponseEntity.ok(roleDTO);
+       RoleDTO createRoleDTO = roleService.createRole(roleDTO);
+        return ResponseEntity.ok(createRoleDTO);
     }
 
 }
