@@ -151,11 +151,6 @@ public class User {
     }
 
     public void setEmail(String email) {
-        if (UserLogic.isValidEmail(email)) {
-            this.email = email;
-        } else {
-            throw new IllegalArgumentException("Invalid email format");
-        }
         this.email = email;
     }
     public String getIdentityNumber() {

@@ -55,7 +55,10 @@ public class UserLogic {
             System.out.println("Password is not valid");
         }
 
-
+       if(!isValidEmail(user.getEmail()))
+       {
+           throw new IllegalArgumentException("Invalid email format");
+       }
 
         List<Role> roles = new ArrayList();
         roles.add(roleRepository.findRoleByName("User"));
