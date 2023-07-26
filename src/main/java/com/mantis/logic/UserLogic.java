@@ -66,7 +66,7 @@ public class UserLogic {
 
 
         User newUser = userRepository.save(user);
-        emailLogic.sendEmail(newUser.getEmail(),"Doğrulama Hk.", newUser.getId());
+        emailLogic.sendEmail(newUser.getEmail(),"E-posta Doğrulama-cargo", newUser.getId());
         return newUser;
     }
     public void setVerifiedById(Integer id){

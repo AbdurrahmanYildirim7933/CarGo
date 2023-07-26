@@ -26,8 +26,7 @@ public class User {
     private String lastName;
     @Column(name="phone")
     private String phone;
-    @Column(name="user_name", unique = true)
-    private String userName;
+
 
 
     @Column(name="identity_number", unique = true)
@@ -40,13 +39,11 @@ public class User {
     @NotNull
     @Column(name="password")
     private String password;
+    @Column(name = "is_email_verified",columnDefinition = "boolean default false")
     private boolean isEmailVerified;
     private String emailVerificationCode;
     private Date verificationCodeExpiryDate;
     private String VerificationToken;
-
-
-
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "owner")
     private List<Garage> garages;
@@ -101,14 +98,6 @@ public class User {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
     }
 
     public String getPhone() {
@@ -203,11 +192,6 @@ public class User {
     public void generateVerificationCode() {
         this.emailVerificationCode = UUID.randomUUID().toString();
     }
-
-    public String getVerificationToken() {
-        return VerificationToken;
-    }
-
 
     public void setVerificationToken(String verificationToken) {
         VerificationToken = verificationToken;
