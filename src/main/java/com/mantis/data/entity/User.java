@@ -49,7 +49,7 @@ public class User {
     private List<Garage> garages;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-    private List<UserRepairServiceRelation> userRepairServiceRelations;
+    private List<UserRepairShopRelation> userRepairShopRelations;
     @Column(name = "created_date")
     @CreatedDate
     private LocalDateTime createdDate;
@@ -116,12 +116,12 @@ public class User {
         this.garages = garages;
     }
 
-    public List<UserRepairServiceRelation> getUserRepairServiceRelations() {
-        return userRepairServiceRelations;
+    public List<UserRepairShopRelation> getUserRepairShopRelations() {
+        return userRepairShopRelations;
     }
 
-    public void setUserRepairServiceRelations(List<UserRepairServiceRelation> userRepairServiceRelations) {
-        this.userRepairServiceRelations = userRepairServiceRelations;
+    public void setUserRepairShopRelations(List<UserRepairShopRelation> userRepairShopRelations) {
+        this.userRepairShopRelations = userRepairShopRelations;
     }
 
     public List<Shop> getShops() {

@@ -4,8 +4,8 @@ import jakarta.persistence.*;
 import org.antlr.v4.runtime.misc.NotNull;
 
 @Entity
-@Table(name="tbl_repair_service_workers")
-public class RepairServiceWorkers {
+@Table(name="tbl_repair_shop_workers")
+public class RepairShopWorkers {
 
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,8 +24,8 @@ public class RepairServiceWorkers {
 
         @NotNull
         @ManyToOne(fetch = FetchType.LAZY)
-        @JoinColumn(name = "repair_service_id", nullable = false)
-        private RepairService repairService;
+        @JoinColumn(name = "repair_shop_id", nullable = false)
+        private RepairShop repairShop;
 
         public Integer getId() {
                 return id;
@@ -75,11 +75,11 @@ public class RepairServiceWorkers {
                 this.identityNumber = identityNumber;
         }
 
-        public RepairService getRepairService() {
-                return repairService;
+        public RepairShop getRepairShop() {
+                return repairShop;
         }
 
-        public void setRepairService(RepairService repairService) {
-                this.repairService = repairService;
+        public void setRepairShop(RepairShop repairShop) {
+                this.repairShop = repairShop;
         }
 }

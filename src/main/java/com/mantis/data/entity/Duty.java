@@ -16,7 +16,7 @@ public class Duty {
         private String name;
 
         @OneToMany(fetch = FetchType.LAZY, mappedBy = "duty")
-        private List<RepairServiceDutyRelation> repairServiceDutyRelations;
+        private List<RepairShopDutyRelation> repairShopDutyRelations;
 
         public Integer getId() {
                 return id;
@@ -34,11 +34,11 @@ public class Duty {
                 this.name = name;
         }
 
-        public List<RepairServiceDutyRelation> getRepairServiceDutyRelations() {
-                return repairServiceDutyRelations;
+        public List<RepairShopDutyRelation> getRepairShopDutyRelations() {
+                return repairShopDutyRelations;
         }
 
-        public void setRepairServiceDutyRelations(List<RepairServiceDutyRelation> repairServiceDutyRelations) {
-                this.repairServiceDutyRelations = repairServiceDutyRelations;
+        public void setRepairShopDutyRelations(List<RepairShopDutyRelation> repairShopDutyRelations) {
+                this.repairShopDutyRelations = repairShopDutyRelations;
         }
 }
