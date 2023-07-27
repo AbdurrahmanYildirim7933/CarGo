@@ -3,14 +3,17 @@ package com.mantis.logic;
 
 import com.mantis.data.entity.Role;
 import com.mantis.data.entity.User;
+import com.mantis.data.entity.UserVerification;
 import com.mantis.mapper.UserMapper;
 import com.mantis.repositories.RoleRepository;
 import com.mantis.repositories.UserRepository;
+import com.mantis.repositories.UserVerificationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import javax.mail.MessagingException;
+import java.security.SecureRandom;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -24,6 +27,8 @@ public class UserLogic {
     UserRepository userRepository;
     @Autowired
     RoleRepository roleRepository;
+    @Autowired
+    UserVerificationRepository verificationRepository;
     @Autowired EmailLogic emailLogic;
 
     private UserMapper userMapper = new UserMapper();
@@ -54,11 +59,16 @@ public class UserLogic {
         } else {
             System.out.println("Password is not valid");
         }
+        if (!isValidEmail(user.getEmail())) {
+            throw new IllegalArgumentException("Invalid email format");
+
+        }
 
        if(!isValidEmail(user.getEmail()))
        {
            throw new IllegalArgumentException("Invalid email format");
        }
+        UUID uuid = UUID.randomUUID();
 
         List<Role> roles = new ArrayList();
         roles.add(roleRepository.findRoleByName("User"));
@@ -66,24 +76,31 @@ public class UserLogic {
         String hashedPassword = encoder.encode(user.getPassword());
         user.setPassword(hashedPassword);
         user.setRoles(roles);
+        UserVerification userVerification = new UserVerification();
+
 
 
         User newUser = userRepository.save(user);
-        emailLogic.sendEmail(newUser.getEmail(),"E-posta Doğrulama-cargo", newUser.getId());
+        userVerification.setUserId(newUser);
+        verificationRepository.save(userVerification);
+        emailLogic.sendEmailWithUUID(newUser.getEmail(),"E-posta Doğrulama-cargo",
+                verificationRepository.getUserVerificationByUserId(newUser.getId()).getId().toString());
         return newUser;
     }
-    public void setVerifiedById(Integer id){
+    public void setVerifiedById(UUID id){
 
-       User user =  userRepository.findById(id).get();
-        Duration duration = Duration.between(user.getCreatedDate(), LocalDateTime.now());
-        long minuteDifferent = duration.toMinutes();
+        UserVerification verification = verificationRepository.findById(id).get();
+
+        //Duration duration = Duration.between(user.getCreatedDate(), LocalDateTime.now());
+        //long minuteDifferent = duration.toMinutes();
 
 
-        int minuteDifferentInt = (int) minuteDifferent;
+        /*int minuteDifferentInt = (int) minuteDifferent;
         if (minuteDifferentInt>5){
             throw new RuntimeException("Süre Aşımı");
-        }
-       user.setEmailVerified(true);
+        }*/
+        User user = userRepository.findById(verification.getUserId().getId()).get();
+        user.setEmailVerified(true);
     }
 
     public void deleteUser(Integer id) {
@@ -140,9 +157,13 @@ public class UserLogic {
 
     }
 
+}
 
 
-    }
+
+
+
+
 
 
 

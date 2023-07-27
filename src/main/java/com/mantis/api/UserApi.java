@@ -28,14 +28,9 @@ public class UserApi {
         return ResponseEntity.ok(userService.findById(id));
     }
 
-
-    //private static final String EMAIL_REGEX = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
     @PostMapping("/create-user")
     public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO) throws MessagingException {
-        //String email = userDTO.getEmail();
-        // if (email.matches(EMAIL_REGEX)) {
-        //UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        //System.out.println("userDetails = " + userDetails);
+
             UserDTO createdUserDTO = userService.createUser(userDTO);
         return ResponseEntity.ok(createdUserDTO);
     }

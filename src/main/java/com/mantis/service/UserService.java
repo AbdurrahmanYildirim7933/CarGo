@@ -1,7 +1,7 @@
 package com.mantis.service;
 
 import com.mantis.data.dto.UserDTO;
-
+import com.mantis.data.entity.User;
 import com.mantis.logic.UserLogic;
 import com.mantis.mapper.UserMapper;
 import com.mantis.repositories.UserRepository;
@@ -11,6 +11,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
+import java.util.UUID;
 
 @Service
 @Transactional
@@ -26,8 +27,8 @@ public class UserService {
     public UserDTO createUser(UserDTO userDTO) throws MessagingException {
         return  this.userMapper.toDTO(userLogic.createUser(userMapper.toEntity(userDTO))) ;
     }
-    public void setVerifiedById(Integer id){
-        userLogic.setVerifiedById(id);
+    public void verifyByUserId(UUID uuid){
+        userLogic.setVerifiedById(uuid);
     }
 
     @PreAuthorize("hasAuthority('DELETE_USER')")

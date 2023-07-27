@@ -2,7 +2,6 @@ package com.mantis.data.dto;
 
 
 public class RepairShopDutyDTO {
-
     private Integer id;
     private double price;
     private RepairShopDTO repairShopDTO;
