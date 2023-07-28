@@ -2,6 +2,7 @@ package com.mantis.api;
 
 import com.mantis.data.dto.RepairShopDTO;
 import com.mantis.data.dto.RepairShopDutyDTO;
+import com.mantis.data.dto.RepairShopWorkersDTO;
 import com.mantis.mapper.RepairShopMapper;
 import com.mantis.repositories.RepairShopRepository;
 import com.mantis.service.RepairShopService;
@@ -19,6 +20,7 @@ public class RepairShopApi {
     @Autowired
     private RepairShopService repairShopService;
 
+
     @PostMapping("/create-repair_shop")
     public ResponseEntity<RepairShopDTO> createService(@RequestBody RepairShopDTO repairShopDTO) {
         RepairShopDTO createdRrepairShopDTO = repairShopService.createService(repairShopDTO);
@@ -29,6 +31,12 @@ public class RepairShopApi {
     public ResponseEntity<RepairShopDutyDTO> createRepairShopDuty(@RequestBody RepairShopDutyDTO repairShopDutyDTO) {
         RepairShopDutyDTO createdRepairShopDutyDTO = repairShopService.createRepairShopDuty(repairShopDutyDTO);
         return ResponseEntity.ok(createdRepairShopDutyDTO);
+    }
+
+    @PostMapping("/create-repair_shop_workers")
+    public ResponseEntity<RepairShopWorkersDTO> createRepairShopWorkers(@RequestBody RepairShopWorkersDTO repairShopWorkersDTO) {
+        RepairShopWorkersDTO createdRepairShopWorkersDTO = repairShopService.createRepairShopWorkers(repairShopWorkersDTO);
+        return ResponseEntity.ok(createdRepairShopWorkersDTO);
     }
 
 }
