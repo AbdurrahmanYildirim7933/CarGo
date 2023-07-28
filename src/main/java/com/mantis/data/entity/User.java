@@ -27,8 +27,6 @@ public class User {
     @Column(name="phone")
     private String phone;
 
-
-
     @Column(name="identity_number", unique = true)
     private String identityNumber;
 

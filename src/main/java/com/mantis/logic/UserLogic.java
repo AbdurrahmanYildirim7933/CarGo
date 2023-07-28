@@ -13,9 +13,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import javax.mail.MessagingException;
-import java.security.SecureRandom;
-import java.time.Duration;
-import java.time.LocalDateTime;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -58,6 +55,7 @@ public class UserLogic {
             System.out.println("Password is valid.");
         } else {
             System.out.println("Password is not valid");
+            throw new IllegalArgumentException("Password is not valid.");
         }
         if (!isValidEmail(user.getEmail())) {
             throw new IllegalArgumentException("Invalid email format");

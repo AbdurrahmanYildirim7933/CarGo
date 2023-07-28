@@ -1,10 +1,6 @@
 package com.mantis.api;
 
 import com.mantis.data.dto.GarageDTO;
-import com.mantis.data.dto.PermissionDTO;
-import com.mantis.data.dto.UserDTO;
-import com.mantis.data.entity.Garage;
-import com.mantis.service.AuthenticationService;
 import com.mantis.service.GarageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

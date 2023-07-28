@@ -4,11 +4,11 @@ import jakarta.persistence.*;
 import org.antlr.v4.runtime.misc.NotNull;
 
 @Entity
-@Table(name="tbl_employee")
+@Table(name="tbl_employee", uniqueConstraints = @UniqueConstraint(columnNames = {"id","shop_id"}))
 public class Employee {
 
         @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        @GeneratedValue(strategy = GenerationType.IDENTITY )
         @Column(name="id")
         private Integer id;
         @Column(name="name")

@@ -21,7 +21,7 @@ public class DutyApi {
     public ResponseEntity<DutyDTO> createDuty(@RequestBody DutyDTO dutyDTO)
     {
         DutyDTO createdDutyDto = dutyService.createDuty(dutyDTO);
-        return ResponseEntity.ok(dutyDTO);
+        return ResponseEntity.ok(createdDutyDto);
     }
 
 }

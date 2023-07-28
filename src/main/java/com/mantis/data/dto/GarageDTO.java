@@ -1,12 +1,5 @@
 package com.mantis.data.dto;
 
-import com.mantis.data.entity.User;
-import jakarta.persistence.Column;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import org.antlr.v4.runtime.misc.NotNull;
-
 public class GarageDTO {
 
     private Integer id;

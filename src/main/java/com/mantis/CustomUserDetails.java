@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 public class CustomUserDetails implements UserDetails {
 
-    private final User user; // Your User entity class or the class that represents user details.
+    private final User user;
 
     public CustomUserDetails(User user) {
         this.user = user;
@@ -33,37 +33,31 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public String getPassword() {
-        // Implement how you want to retrieve the user's password from the User entity.
         return user.getPassword();
     }
 
     @Override
     public String getUsername() {
-        // Implement how you want to retrieve the username or email from the User entity.
         return user.getEmail();
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        // Implement any logic for account expiration if needed.
         return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        // Implement any logic for account locking if needed.
         return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        // Implement any logic for credentials expiration if needed.
         return true;
     }
 
     @Override
     public boolean isEnabled() {
-        // Implement any logic to check if the user is enabled or active if needed.
         return true;
     }
 

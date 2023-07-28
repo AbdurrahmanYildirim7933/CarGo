@@ -1,14 +1,8 @@
 package com.mantis.mapper;
 
-import com.mantis.data.dto.DutyDTO;
-import com.mantis.data.dto.RepairShopDTO;
+
 import com.mantis.data.dto.RepairShopDutyDTO;
-import com.mantis.data.entity.Duty;
-import com.mantis.data.entity.RepairShop;
 import com.mantis.data.entity.RepairShopDutyRelation;
-import com.mantis.repositories.RepairShopDutyRepository;
-import com.mantis.repositories.RepairShopRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 

@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import org.antlr.v4.runtime.misc.NotNull;
 
 @Entity
-@Table(name="tbl_repair_shop_workers")
+@Table(name="tbl_repair_shop_workers", uniqueConstraints = @UniqueConstraint(columnNames = {"id","repair_shop_id"}))
 public class RepairShopWorkers {
 
         @Id

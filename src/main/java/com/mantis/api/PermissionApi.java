@@ -1,9 +1,7 @@
 package com.mantis.api;
 
 import com.mantis.data.dto.PermissionDTO;
-import com.mantis.data.dto.RoleDTO;
 import com.mantis.service.PermissionService;
-import com.mantis.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

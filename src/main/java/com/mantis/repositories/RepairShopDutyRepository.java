@@ -1,6 +1,5 @@
 package com.mantis.repositories;
 
-import com.mantis.data.entity.RepairShop;
 import com.mantis.data.entity.RepairShopDutyRelation;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

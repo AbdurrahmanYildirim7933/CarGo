@@ -4,20 +4,10 @@ import com.mantis.common.enums.EPermission;
 import com.mantis.data.entity.Permission;
 import com.mantis.data.entity.Role;
 import com.mantis.data.entity.User;
-import com.mantis.repositories.UserRepository;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.io.Decoders;
-import io.jsonwebtoken.io.Encoders;
-import io.jsonwebtoken.security.Keys;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.crypto.keygen.KeyGenerators;
 
-
-import javax.crypto.SecretKey;
-import java.security.Key;
 import java.security.SecureRandom;
 import java.util.*;
 import java.util.concurrent.TimeUnit;

@@ -1,9 +1,7 @@
 package com.mantis.mapper;
 
 import com.mantis.data.dto.RoleDTO;
-import com.mantis.data.dto.UserDTO;
 import com.mantis.data.entity.Role;
-import com.mantis.data.entity.User;
 
 public class RoleMapper {
 

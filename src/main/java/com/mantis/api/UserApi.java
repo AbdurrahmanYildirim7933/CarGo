@@ -1,15 +1,9 @@
 package com.mantis.api;
 
 import com.mantis.data.dto.UserDTO;
-import com.mantis.data.entity.User;
-import com.mantis.mapper.UserMapper;
-import com.mantis.repositories.UserRepository;
 import com.mantis.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
@@ -18,11 +12,9 @@ import javax.mail.MessagingException;
 @RequestMapping("api/v1/user")
 public class UserApi {
 
-
     @Autowired
-    private UserService userService = new UserService();
-    private UserMapper userMapper= new UserMapper();
-    UserRepository  userRepository;
+    private UserService userService;
+
     @GetMapping("/get-user")
     public ResponseEntity<UserDTO> getUser(@RequestParam(name = "id", required=false) Integer id) {
         return ResponseEntity.ok(userService.findById(id));

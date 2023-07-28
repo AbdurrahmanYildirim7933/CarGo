@@ -2,7 +2,6 @@ package com.mantis.data.dto;
 
 import com.mantis.common.enums.EPermission;
 import com.mantis.data.entity.Role;
-import jakarta.persistence.*;
 
 import java.util.List;
 

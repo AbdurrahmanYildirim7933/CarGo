@@ -11,8 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
-import static org.springframework.security.authorization.AuthorityReactiveAuthorizationManager.hasAuthority;
-
 @Service
 @Transactional
 public class RepairShopService {
@@ -22,7 +20,7 @@ public class RepairShopService {
 
     private RepairShopMapper repairShopMapper= new RepairShopMapper();
 
-    RepairShopDutyMapper repairShopDutyMapper= new RepairShopDutyMapper();
+    private RepairShopDutyMapper repairShopDutyMapper= new RepairShopDutyMapper();
 
     @PreAuthorize("hasAuthority('CREATE_REPAIR_SHOP')")
     public RepairShopDTO createService(RepairShopDTO repairShopDTO) {

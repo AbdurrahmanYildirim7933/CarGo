@@ -17,13 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class RepairShopApi {
 
     @Autowired
-    private RepairShopService repairShopService = new RepairShopService();
-    private RepairShopMapper repairShopMapper= new RepairShopMapper();
-    RepairShopRepository RepairShopRepository;
-
-    public RepairShopApi(RepairShopRepository RepairShopRepository) {
-        this.RepairShopRepository = RepairShopRepository;
-    }
+    private RepairShopService repairShopService;
 
     @PostMapping("/create-repair_shop")
     public ResponseEntity<RepairShopDTO> createService(@RequestBody RepairShopDTO repairShopDTO) {

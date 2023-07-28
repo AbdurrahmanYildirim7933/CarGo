@@ -1,7 +1,6 @@
 package com.mantis.service;
 
 import com.mantis.data.dto.UserDTO;
-import com.mantis.data.entity.User;
 import com.mantis.logic.UserLogic;
 import com.mantis.mapper.UserMapper;
 import com.mantis.repositories.UserRepository;

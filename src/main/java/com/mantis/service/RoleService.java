@@ -1,8 +1,6 @@
 package com.mantis.service;
 
 import com.mantis.data.dto.RoleDTO;
-import com.mantis.data.dto.UserDTO;
-import com.mantis.data.entity.Role;
 import com.mantis.logic.RoleLogic;
 import com.mantis.mapper.RoleMapper;
 import jakarta.transaction.Transactional;
