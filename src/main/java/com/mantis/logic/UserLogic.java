@@ -4,6 +4,8 @@ package com.mantis.logic;
 import com.mantis.data.entity.Role;
 import com.mantis.data.entity.User;
 import com.mantis.data.entity.UserVerification;
+import com.mantis.exceptions.CustomException;
+
 import com.mantis.mapper.UserMapper;
 import com.mantis.repositories.RoleRepository;
 import com.mantis.repositories.UserRepository;
@@ -11,6 +13,7 @@ import com.mantis.repositories.UserVerificationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
+import org.springframework.util.ObjectUtils;
 
 import javax.mail.MessagingException;
 import java.util.*;
@@ -48,7 +51,10 @@ public class UserLogic {
     }
 
     public User createUser(User user) throws MessagingException {
+        if (!ObjectUtils.isEmpty(user.getId())){
 
+            throw new CustomException("xxxxx","yyyyyyy");
+        }
         user = checkObjectValidation(user);
         boolean isPaswordValid = checkPasswordValidation(user);
         if (isPaswordValid) {
@@ -76,27 +82,18 @@ public class UserLogic {
         user.setRoles(roles);
         UserVerification userVerification = new UserVerification();
 
-
-
         User newUser = userRepository.save(user);
         userVerification.setUserId(newUser);
         verificationRepository.save(userVerification);
         emailLogic.sendEmailWithUUID(newUser.getEmail(),"E-posta Doğrulama-cargo",
                 verificationRepository.getUserVerificationByUserId(newUser.getId()).getId().toString());
+        emailLogic.getUserVerificationByUserId(newUser.getId());
         return newUser;
     }
     public void setVerifiedById(UUID id){
 
         UserVerification verification = verificationRepository.findById(id).get();
 
-        //Duration duration = Duration.between(user.getCreatedDate(), LocalDateTime.now());
-        //long minuteDifferent = duration.toMinutes();
-
-
-        /*int minuteDifferentInt = (int) minuteDifferent;
-        if (minuteDifferentInt>5){
-            throw new RuntimeException("Süre Aşımı");
-        }*/
         User user = userRepository.findById(verification.getUserId().getId()).get();
         user.setEmailVerified(true);
     }
@@ -153,6 +150,9 @@ public class UserLogic {
 
         return password.matches(passwordRegex);
 
+    }
+    private String Message(String message){
+        return message= ("sdfg");
     }
 
 }
