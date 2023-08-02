@@ -1,5 +1,6 @@
 package com.mantis.logic;
 
+import com.mantis.data.dto.GarageDTO;
 import com.mantis.data.entity.Garage;
 import com.mantis.data.entity.User;
 import com.mantis.repositories.GarageRepository;
@@ -7,13 +8,18 @@ import com.mantis.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Component
-public class GarageLogic {
+public class        GarageLogic {
 
     @Autowired
     GarageRepository garageRepository;
     @Autowired
     UserRepository userRepository;
+
+    private List<Garage> garages = new ArrayList<>();
 
     public Garage createGarage(Garage garage)
     {
@@ -26,6 +32,32 @@ public class GarageLogic {
                 }
         }
         return null;
+    }
+
+    public Garage getGarage(Integer id){
+    return garageRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Garage cannot found"));
+    }
+
+
+    public void deleteGarage(Integer id){
+        if (id == null || id == 0) {
+            throw new RuntimeException("ID cannot be null");
+        }
+        garageRepository.deleteById(id);
+    }
+
+    public Garage updateGarage(Integer id, Garage newGarage){
+        Garage oldGarage = garageRepository.findById(id).orElseThrow(()-> new RuntimeException("Garage cannot found"));
+        if(newGarage.getOwner() != null && newGarage.getOwner().getId() != null) {
+            User user = userRepository.findById(newGarage.getOwner().getId()).orElse(null);
+            if (user != null) {
+                oldGarage.setName(newGarage.getName());
+                oldGarage.setCars(newGarage.getCars());
+                oldGarage.setOwner(user);
+                garageRepository.save(oldGarage);
+            }
+        }  return oldGarage;
     }
 
 }

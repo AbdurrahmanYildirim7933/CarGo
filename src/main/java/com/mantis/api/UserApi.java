@@ -1,6 +1,6 @@
 package com.mantis.api;
 
-import com.mantis.data.dto.UserDTO;
+import  com.mantis.data.dto.UserDTO;
 import com.mantis.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

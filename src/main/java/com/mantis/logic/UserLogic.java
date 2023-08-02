@@ -27,6 +27,8 @@ public class UserLogic {
     UserRepository userRepository;
     @Autowired
     RoleRepository roleRepository;
+
+
     @Autowired
     UserVerificationRepository verificationRepository;
     @Autowired EmailLogic emailLogic;
@@ -50,7 +52,7 @@ public class UserLogic {
                 .orElseThrow(() -> new RuntimeException("User not found"));
     }
 
-    public User createUser(User user) throws MessagingException {
+     public User createUser(User user) throws MessagingException {
         if (!ObjectUtils.isEmpty(user.getId())){
 
             throw new CustomException("xxxxx","yyyyyyy");
@@ -68,10 +70,6 @@ public class UserLogic {
 
         }
 
-       if(!isValidEmail(user.getEmail()))
-       {
-           throw new IllegalArgumentException("Invalid email format");
-       }
         UUID uuid = UUID.randomUUID();
 
         List<Role> roles = new ArrayList();

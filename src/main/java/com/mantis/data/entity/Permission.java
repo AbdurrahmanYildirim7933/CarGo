@@ -23,7 +23,7 @@ public class Permission {
         @JoinTable(
                 name="tbl_role_permission_relation",
                 joinColumns = @JoinColumn(name="permission_id",referencedColumnName = "id"),
-                inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+                        inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
         private List<Role> roles;
 
         public Integer getId() {

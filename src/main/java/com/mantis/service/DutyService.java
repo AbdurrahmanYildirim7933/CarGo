@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Transactional
-public class DutyService {
+public class    DutyService {
     @Autowired
     DutyLogic dutyLogic;
 
