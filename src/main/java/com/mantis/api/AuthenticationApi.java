@@ -10,6 +10,7 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@CrossOrigin(maxAge = 3600)
 @RequestMapping("api/v1/auth")
 public class AuthenticationApi {
 

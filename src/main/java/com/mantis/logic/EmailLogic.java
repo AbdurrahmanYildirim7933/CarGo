@@ -20,7 +20,6 @@ public class EmailLogic {
     @Autowired
     UserVerificationRepository verificationRepository;
 
-
     private final JavaMailSender javaMailSender;
 
     public EmailLogic(JavaMailSender javaMailSender) {

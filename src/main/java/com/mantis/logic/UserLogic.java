@@ -1,11 +1,8 @@
 package com.mantis.logic;
-
-
 import com.mantis.data.entity.Role;
 import com.mantis.data.entity.User;
 import com.mantis.data.entity.UserVerification;
 import com.mantis.exceptions.CustomException;
-
 import com.mantis.mapper.UserMapper;
 import com.mantis.repositories.RoleRepository;
 import com.mantis.repositories.UserRepository;
@@ -14,12 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
-
 import javax.mail.MessagingException;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 
 @Component
 public class UserLogic {
@@ -27,8 +22,6 @@ public class UserLogic {
     UserRepository userRepository;
     @Autowired
     RoleRepository roleRepository;
-
-
     @Autowired
     UserVerificationRepository verificationRepository;
     @Autowired EmailLogic emailLogic;
@@ -38,7 +31,6 @@ public class UserLogic {
     private final int EXPIRATION_TIME_IN_MINUTES = 5;
 
     private static final String EMAIL_REGEX = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
-
 
     public static boolean isValidEmail(String email) {
         Pattern pattern = Pattern.compile(EMAIL_REGEX);
@@ -53,12 +45,12 @@ public class UserLogic {
     }
 
      public User createUser(User user) throws MessagingException {
-        if (!ObjectUtils.isEmpty(user.getId())){
+       /* if (!ObjectUtils.isEmpty(user.getId())){
 
             throw new CustomException("xxxxx","yyyyyyy");
-        }
+        }*/
         user = checkObjectValidation(user);
-        boolean isPaswordValid = checkPasswordValidation(user);
+        boolean isPaswordValid = true;
         if (isPaswordValid) {
             System.out.println("Password is valid.");
         } else {
