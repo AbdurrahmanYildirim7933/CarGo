@@ -5,6 +5,7 @@ import com.mantis.data.dto.SessionDTO;
 import  com.mantis.data.dto.UserDTO;
 import com.mantis.service.GarageService;
 import com.mantis.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -23,6 +24,52 @@ public class UserApi {
     @Autowired
     private GarageService garageService;
 
+
+
+    @Autowired
+    private HttpServletRequest request;
+
+
+
+
+    @GetMapping("/get-client-ip")
+    public ResponseEntity<Object> getIP(HttpServletRequest request) {
+        String clientIP = getClientIP(request);
+        IPResponse response = new IPResponse(clientIP);
+        return ResponseEntity.ok(response);
+    }
+
+    private String getClientIP(HttpServletRequest request) {
+        String clientIP = request.getHeader("X-Forwarded-For");
+
+        if (clientIP == null || clientIP.isEmpty() || "unknown".equalsIgnoreCase(clientIP)) {
+            // If X-Forwarded-For header is not available or has a "unknown" value,
+            // fall back to the remote address provided by the request.
+            clientIP = request.getRemoteAddr();
+        } else {
+            // The X-Forwarded-For header can contain a comma-separated list of IP addresses.
+            // In this case, the client IP is the first address in the list.
+            int indexOfFirstComma = clientIP.indexOf(",");
+            if (indexOfFirstComma != -1) {
+                clientIP = clientIP.substring(0, indexOfFirstComma);
+            }
+        }
+
+        return clientIP;
+    }
+
+    // A simple class to represent the JSON response
+    private static class IPResponse {
+        private final String clientIP;
+
+        public IPResponse(String clientIP) {
+            this.clientIP = clientIP;
+        }
+
+        public String getClientIP() {
+            return clientIP;
+        }
+    }
 
 
     @GetMapping("/get-user")
