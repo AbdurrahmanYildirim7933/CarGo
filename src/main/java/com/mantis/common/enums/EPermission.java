@@ -16,5 +16,10 @@ public enum EPermission {
     CREATE_SHOP,
     CREATE_PRODUCT,
     CREATE_PRODUCT_SHOP_RELATION,
+    GET_GARAGES_BY_USER,
+    GET_SESSION;
+
+
+
 
 }

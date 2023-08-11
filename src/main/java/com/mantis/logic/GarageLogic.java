@@ -7,6 +7,7 @@ import com.mantis.repositories.GarageRepository;
 import com.mantis.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.ObjectUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,5 +60,16 @@ public class        GarageLogic {
             }
         }  return oldGarage;
     }
+
+    public List<Garage> getGaragesByUserID(Integer user_id) {
+        if (ObjectUtils.isEmpty(user_id)) {
+            throw new RuntimeException("ID cannot be null");
+        } List<Garage> garages = garageRepository.getGaragesByUserId(user_id);
+        if(ObjectUtils.isEmpty(garages)){
+            throw new RuntimeException("Garage is empty right now");
+        }
+        return garages;
+    }
+
 
 }

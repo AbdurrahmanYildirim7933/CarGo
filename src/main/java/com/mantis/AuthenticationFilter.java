@@ -1,8 +1,11 @@
 package com.mantis;
 
+import com.mantis.data.dto.SessionDTO;
 import com.mantis.data.entity.Permission;
 import com.mantis.data.entity.Role;
 import com.mantis.data.entity.User;
+import com.mantis.logic.AuthorizationLogic;
+import com.mantis.logic.UserLogic;
 import com.mantis.repositories.UserRepository;
 import com.mantis.service.CustomUserDetailsService;
 import jakarta.servlet.FilterChain;
@@ -23,12 +26,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-    public class AuthenticationFilter extends OncePerRequestFilter {
+public class AuthenticationFilter extends OncePerRequestFilter {
 
-        @Autowired
-        private UserRepository userRepository;
-        @Autowired
-        private CustomUserDetailsService customUserDetailsService;
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private CustomUserDetailsService customUserDetailsService;
+
+    @Autowired
+    AuthorizationLogic authorizationLogic;
 
 
     @Override
@@ -44,10 +50,8 @@ import java.util.List;
             List<GrantedAuthority> perms = new ArrayList<>();
 
 
-            for(Role role: user.getRoles())
-            {
-                for(Permission permission: role.getPermissions())
-                {
+            for (Role role : user.getRoles()) {
+                for (Permission permission : role.getPermissions()) {
                     perms.add(new SimpleGrantedAuthority(permission.getName().toString()));
                 }
             }
@@ -58,11 +62,12 @@ import java.util.List;
 
             authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
             SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-
+            SessionDTO session= new SessionDTO();
+            session.setName(user.getName());
+            authorizationLogic.setSession(session);
         }
-            chain.doFilter(request, response);
+        chain.doFilter(request, response);
     }
-
 
 
 }

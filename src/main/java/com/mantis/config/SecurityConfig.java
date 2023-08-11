@@ -1,11 +1,9 @@
 package com.mantis.config;
 
 import com.mantis.AuthenticationFilter;
-import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -17,7 +15,6 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.Arrays;
-import java.util.Collections;
 
 @Configuration
 @EnableMethodSecurity
@@ -28,15 +25,14 @@ public class SecurityConfig{
  public BCryptPasswordEncoder passwordEncoder() {
      return new BCryptPasswordEncoder();
  }
-
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
 
-        return http
-                .csrf(c->c.disable()).cors(cors->cors.configurationSource(getCorsConfigurationSource()))
+        return http.
+        csrf(c->c.disable()).cors(cors->cors.configurationSource(getCorsConfigurationSource()))
                 .authorizeHttpRequests(auth ->
                         auth.requestMatchers("api/v1/auth/login",
-                                        "api/v1/user/create-user","api/v1/email/**")
+                                        "api/v1/user/create-user","api/v1/email/**","api/v1/auth/me")
                                 .permitAll().anyRequest().authenticated()).addFilterBefore(
                         authenticationFilter, BearerTokenAuthenticationFilter.class
                 ).build();
@@ -55,5 +51,6 @@ public class SecurityConfig{
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }
-}
 
+
+}

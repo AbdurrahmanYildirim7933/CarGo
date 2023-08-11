@@ -1,5 +1,9 @@
 package com.mantis.data.dto;
 
+import com.mantis.data.entity.Garage;
+
+import java.util.List;
+
 public class UserDTO {
 
     private int id;
@@ -9,8 +13,6 @@ public class UserDTO {
     private String phone;
     private String email;
     private String password;
-
-
 
     private String userName;
 

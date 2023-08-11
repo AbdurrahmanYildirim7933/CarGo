@@ -1,12 +1,17 @@
 package com.mantis.api;
 
+import com.mantis.data.dto.GarageDTO;
+import com.mantis.data.dto.SessionDTO;
 import  com.mantis.data.dto.UserDTO;
+import com.mantis.service.GarageService;
 import com.mantis.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
+import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/user")
@@ -14,6 +19,11 @@ public class UserApi {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private GarageService garageService;
+
+
 
     @GetMapping("/get-user")
     public ResponseEntity<UserDTO> getUser(@RequestParam(name = "id", required=false) Integer id) {
@@ -38,6 +48,8 @@ public class UserApi {
         UserDTO updatedUserDTO = userService.updateUser(id, userDTO);
         return ResponseEntity.ok(updatedUserDTO);
     }
+
+
 
 
 }

@@ -16,7 +16,6 @@ public class PermissionService {
 
     PermissionMapper permissionMapper = new PermissionMapper();
 
-    @PreAuthorize("hasAuthority('CREATE_PERMISSION')")
     public PermissionDTO createPermission(PermissionDTO permissionDTO) {
         return  permissionMapper.toDTO(permissionLogic.createPermission(permissionMapper.toEntity(permissionDTO)));
     }

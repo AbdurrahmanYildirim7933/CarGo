@@ -1,8 +1,13 @@
 package com.mantis.logic;
+
+
+import com.mantis.JwtResponse;
+import com.mantis.data.dto.SessionDTO;
 import com.mantis.data.entity.Role;
 import com.mantis.data.entity.User;
 import com.mantis.data.entity.UserVerification;
 import com.mantis.exceptions.CustomException;
+
 import com.mantis.mapper.UserMapper;
 import com.mantis.repositories.RoleRepository;
 import com.mantis.repositories.UserRepository;
@@ -11,10 +16,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
+
 import javax.mail.MessagingException;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 
 @Component
 public class UserLogic {
@@ -22,15 +29,19 @@ public class UserLogic {
     UserRepository userRepository;
     @Autowired
     RoleRepository roleRepository;
+
+
     @Autowired
     UserVerificationRepository verificationRepository;
-    @Autowired EmailLogic emailLogic;
+    @Autowired
+    EmailLogic emailLogic;
 
     private UserMapper userMapper = new UserMapper();
     private Map<String, User> users = new HashMap<>();
     private final int EXPIRATION_TIME_IN_MINUTES = 5;
 
     private static final String EMAIL_REGEX = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
+
 
     public static boolean isValidEmail(String email) {
         Pattern pattern = Pattern.compile(EMAIL_REGEX);
@@ -44,10 +55,10 @@ public class UserLogic {
                 .orElseThrow(() -> new RuntimeException("User not found"));
     }
 
-     public User createUser(User user) throws MessagingException {
-       /* if (!ObjectUtils.isEmpty(user.getId())){
+    public User createUser(User user) throws MessagingException {
+        /*if (!ObjectUtils.isEmpty(user.getId())) {
 
-            throw new CustomException("xxxxx","yyyyyyy");
+            throw new CustomException("xxxxx", "yyyyyyy");
         }*/
         user = checkObjectValidation(user);
         boolean isPaswordValid = true;
@@ -75,12 +86,13 @@ public class UserLogic {
         User newUser = userRepository.save(user);
         userVerification.setUserId(newUser);
         verificationRepository.save(userVerification);
-        emailLogic.sendEmailWithUUID(newUser.getEmail(),"E-posta Doğrulama-cargo",
+        emailLogic.sendEmailWithUUID(newUser.getEmail(), "E-posta Doğrulama-cargo",
                 verificationRepository.getUserVerificationByUserId(newUser.getId()).getId().toString());
         emailLogic.getUserVerificationByUserId(newUser.getId());
         return newUser;
     }
-    public void setVerifiedById(UUID id){
+
+    public void setVerifiedById(UUID id) {
 
         UserVerification verification = verificationRepository.findById(id).get();
 
@@ -141,9 +153,11 @@ public class UserLogic {
         return password.matches(passwordRegex);
 
     }
-    private String Message(String message){
-        return message= ("sdfg");
+
+    private String Message(String message) {
+        return message = ("sdfg");
     }
+
 
 }
 

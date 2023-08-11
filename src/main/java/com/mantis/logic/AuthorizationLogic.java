@@ -1,6 +1,7 @@
 package com.mantis.logic;
 
 import com.mantis.JwtTokenUtil;
+import com.mantis.data.dto.SessionDTO;
 import com.mantis.data.entity.User;
 import com.mantis.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ public class AuthorizationLogic {
     @Autowired
     private UserRepository userRepository;
 
+    SessionDTO session;
 
     private JwtTokenUtil jwtTokenUtil = new JwtTokenUtil();
 
@@ -21,10 +23,10 @@ public class AuthorizationLogic {
     public String login(User user) {
         if (!ObjectUtils.isEmpty(user.getEmail()) && !ObjectUtils.isEmpty(userRepository.findUserByEmail(user.getEmail()))) {
             String dbPw = userRepository.findUserByEmail(user.getEmail()).getPassword();
-            if (matcher.matches(user.getPassword(), dbPw)) {
+            if (matcher.matches(user.getPassword(), dbPw) ){
                 String token = generateJwtToken(user.getEmail());
                 return token;
-            }else {
+            } else {
                 throw new RuntimeException("Hatalı Şifre");
             }
         }
@@ -38,5 +40,11 @@ public class AuthorizationLogic {
         return token;
     }
 
+    public SessionDTO getSession() {
+        return session;
+    }
 
+    public void setSession(SessionDTO session) {
+        this.session = session;
+    }
 }

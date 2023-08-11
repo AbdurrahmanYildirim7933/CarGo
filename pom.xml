@@ -30,6 +30,7 @@
 					<groupId>org.springframework.boot</groupId>
 					<artifactId>spring-boot-starter-security</artifactId>
 				</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -91,9 +92,11 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<dependency>    <groupId>org.postgresql</groupId>
-			<artifactId>postgresql</artifactId></dependency>
-
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>42.6.0</version>
+		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-oauth2-resource-server -->
 		<dependency>
@@ -101,6 +104,8 @@
 			<artifactId>spring-security-oauth2-resource-server</artifactId>
 			<version>6.1.1</version>
 		</dependency>
+
+
 
 	</dependencies>
 
