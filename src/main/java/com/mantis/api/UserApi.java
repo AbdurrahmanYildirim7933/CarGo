@@ -7,6 +7,7 @@ import com.mantis.service.GarageService;
 import com.mantis.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -72,6 +73,7 @@ public class UserApi {
     }
 
 
+
     @GetMapping("/get-user")
     public ResponseEntity<UserDTO> getUser(@RequestParam(name = "id", required=false) Integer id) {
         return ResponseEntity.ok(userService.findById(id));
@@ -96,7 +98,12 @@ public class UserApi {
         return ResponseEntity.ok(updatedUserDTO);
     }
 
-
+    @GetMapping("user-verify-by-code")
+    @ResponseBody
+    public UserDTO userVerifyByCode(@RequestParam(name = "userId") String userId){
+        return new UserDTO();
+        //return userService.verifyByUserId(userId);
+    }
 
 
 }

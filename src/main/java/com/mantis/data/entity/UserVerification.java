@@ -5,6 +5,7 @@ import org.hibernate.annotations.UuidGenerator;
 import org.springframework.data.annotation.CreatedDate;
 
 import java.time.LocalDateTime;
+import java.util.Random;
 import java.util.UUID;
 
 @Entity
@@ -19,6 +20,10 @@ public class UserVerification {
     @Column(name = "created_date")
     @CreatedDate
     private LocalDateTime createdDate;
+    @Column(name="random_code")
+    private String randomeCode;
+
+
 
 
     public UUID getId() {
@@ -36,4 +41,14 @@ public class UserVerification {
     public void setUserId(User userId) {
         this.userId = userId;
     }
+
+    public String getRandomeCode() {
+        return randomeCode;
+    }
+
+    public void setRandomeCode(String randomeCode) {
+        this.randomeCode = randomeCode;
+    }
+
+
 }

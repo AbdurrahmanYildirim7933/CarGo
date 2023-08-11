@@ -33,7 +33,7 @@ public class UserService {
         return  this.userMapper.toDTO(userLogic.createUser(userMapper.toEntity(userDTO))) ;
     }
 
-    public void verifyByUserId(UUID uuid){
+    public void verifyByUserId(UUID uuid,String code){
         userLogic.setVerifiedById(uuid);
     }
 

@@ -10,4 +10,13 @@ import java.util.UUID;
 public interface UserVerificationRepository extends JpaRepository<UserVerification, UUID> {
     @Query(value = "select  * from tbl_user_verification where user_id_id=:userId",nativeQuery = true)
     UserVerification getUserVerificationByUserId(@Param("userId") Integer userId);
+    @Query(value = "select  * from tbl_user_verification where email=:email",nativeQuery = true)
+    UserVerification getUserVerificationByEmail(@Param("email") String email);
+
+
+
+
+
+
 }
+

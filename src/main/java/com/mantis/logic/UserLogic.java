@@ -18,6 +18,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 
 import javax.mail.MessagingException;
+import java.security.SecureRandom;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -81,18 +82,30 @@ public class UserLogic {
         String hashedPassword = encoder.encode(user.getPassword());
         user.setPassword(hashedPassword);
         user.setRoles(roles);
-        UserVerification userVerification = new UserVerification();
 
+        UserVerification userVerification = new UserVerification();
+        userVerification.setRandomeCode(generateRandomCode(4));
         User newUser = userRepository.save(user);
         userVerification.setUserId(newUser);
         verificationRepository.save(userVerification);
         emailLogic.sendEmailWithUUID(newUser.getEmail(), "E-posta Doğrulama-cargo",
-                verificationRepository.getUserVerificationByUserId(newUser.getId()).getId().toString());
+                verificationRepository.getUserVerificationByUserId(newUser.getId()).getId().toString(), user.getEmailVerificationCode(), newUser.getId());
         emailLogic.getUserVerificationByUserId(newUser.getId());
         return newUser;
     }
+    private String generateRandomCode(int length){
+        String characters="0123456789";
+        SecureRandom random = new SecureRandom();
+        StringBuilder code = new StringBuilder();
 
-    public void setVerifiedById(UUID id) {
+        for (int i = 0; i < length; i++) {
+            int index = random.nextInt(characters.length());
+            code.append(characters.charAt(index));
+        }
+        String randomCode = code.toString();
+        return randomCode;
+    }
+    public void setVerifiedById(UUID id){
 
         UserVerification verification = verificationRepository.findById(id).get();
 

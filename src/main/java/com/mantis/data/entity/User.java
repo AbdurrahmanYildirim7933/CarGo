@@ -190,6 +190,8 @@ public class User {
         VerificationToken = verificationToken;
     }
 
+
+
     @PrePersist
     private void beforePersist(){
         this.setCreatedDate(LocalDateTime.now());
