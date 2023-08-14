@@ -33,8 +33,10 @@ public class UserService {
         return  this.userMapper.toDTO(userLogic.createUser(userMapper.toEntity(userDTO))) ;
     }
 
-    public void verifyByUserId(UUID uuid,String code){
-        userLogic.setVerifiedById(uuid);
+    public UserDTO verifyByUser(UserDTO user){
+
+  return this.userMapper.toDTO(userLogic.setVerifiedById(user.getId(),user.getVerifyCode()));
+
     }
 
     @PreAuthorize("hasAuthority('DELETE_USER')")

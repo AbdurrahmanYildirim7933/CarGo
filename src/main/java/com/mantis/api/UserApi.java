@@ -98,11 +98,10 @@ public class UserApi {
         return ResponseEntity.ok(updatedUserDTO);
     }
 
-    @GetMapping("user-verify-by-code")
+    @PostMapping("user-verify-by-code")
     @ResponseBody
-    public UserDTO userVerifyByCode(@RequestParam(name = "userId") String userId){
-        return new UserDTO();
-        //return userService.verifyByUserId(userId);
+    public UserDTO userVerifyByCode(@RequestBody UserDTO user){
+        return userService.verifyByUser(user);
     }
 
 

@@ -90,7 +90,7 @@ public class UserLogic {
         verificationRepository.save(userVerification);
         emailLogic.sendEmailWithUUID(newUser.getEmail(), "E-posta Doğrulama-cargo",
                 verificationRepository.getUserVerificationByUserId(newUser.getId()).getId().toString(), user.getEmailVerificationCode(), newUser.getId());
-        emailLogic.getUserVerificationByUserId(newUser.getId());
+
         return newUser;
     }
     private String generateRandomCode(int length){
@@ -105,12 +105,14 @@ public class UserLogic {
         String randomCode = code.toString();
         return randomCode;
     }
-    public void setVerifiedById(UUID id){
+    public User setVerifiedById(Integer id,String code){
 
-        UserVerification verification = verificationRepository.findById(id).get();
+        UserVerification verification =
+                verificationRepository.getUserVerificationByEmail(id,code);
 
         User user = userRepository.findById(verification.getUserId().getId()).get();
         user.setEmailVerified(true);
+        return user;
     }
 
     public void deleteUser(Integer id) {

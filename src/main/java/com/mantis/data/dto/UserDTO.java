@@ -15,6 +15,15 @@ public class UserDTO {
     private String password;
 
     private String userName;
+    private String verifyCode;
+
+    public String getVerifyCode() {
+        return verifyCode;
+    }
+
+    public void setVerifyCode(String verifyCode) {
+        this.verifyCode = verifyCode;
+    }
 
     public String getPassword() {
         return password;
