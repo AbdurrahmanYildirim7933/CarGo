@@ -12,11 +12,11 @@ public class ShopDTO {
 
     private String address;
 
-    private Integer phone;
+    private String phone;
 
     private List<UserDTO> users;
 
-    public List<UserDTO> getUsers() {
+   public List<UserDTO> getUsers() {
         return users;
     }
 
@@ -48,11 +48,12 @@ public class ShopDTO {
         this.address = address;
     }
 
-    public Integer getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(Integer phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
+
 }

@@ -17,7 +17,10 @@ public class Shop {
         @Column(name="address")
         private String address;
         @Column(name="phone")
-        private Integer phone;
+        private String phone;
+        @Column(name="owner")
+        private String owner;
+
 
         @OneToMany(fetch = FetchType.LAZY, mappedBy = "shop")  //SHOP-EMPLOYEE-FK
         private List<Employee> Employees;        //SHOP-EMPLOYEE-FK
@@ -31,6 +34,7 @@ public class Shop {
                 joinColumns = @JoinColumn(name="shop_id",referencedColumnName = "id"),
                 inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"))
         private List<User> users;
+
 
         public Integer getId() {
                 return id;
@@ -56,11 +60,11 @@ public class Shop {
                 this.address = address;
         }
 
-        public Integer getPhone() {
+        public String getPhone() {
                 return phone;
         }
 
-        public void setPhone(Integer phone) {
+        public void setPhone(String phone) {
                 this.phone = phone;
         }
 
@@ -80,11 +84,19 @@ public class Shop {
                 this.productShopRelations = productShopRelations;
         }
 
-        public List<User> getUsers() {
+       /* public List<User> getUsers() {
                 return users;
         }
 
         public void setUsers(List<User> users) {
                 this.users = users;
+        } */
+
+        public String getOwner() {
+                return owner;
+        }
+
+        public void setOwner(String owner) {
+                this.owner = owner;
         }
 }

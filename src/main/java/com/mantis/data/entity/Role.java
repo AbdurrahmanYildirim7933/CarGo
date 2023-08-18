@@ -1,6 +1,7 @@
 package com.mantis.data.entity;
 
 import jakarta.persistence.*;
+import org.springframework.data.repository.cdi.Eager;
 
 import java.util.List;
 
@@ -18,7 +19,7 @@ public class Role {
         private String description;
 
 
-        @ManyToMany(fetch = FetchType.LAZY)
+        @ManyToMany(fetch = FetchType.EAGER)
         @JoinTable(
                 name="tbl_role_permission_relation",
                 joinColumns = @JoinColumn(name="role_id",referencedColumnName = "id"),

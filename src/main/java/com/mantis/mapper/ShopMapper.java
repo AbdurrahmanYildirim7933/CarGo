@@ -4,6 +4,7 @@ import com.mantis.data.dto.ShopDTO;
 import com.mantis.data.dto.UserDTO;
 import com.mantis.data.entity.Shop;
 import com.mantis.data.entity.User;
+import org.springframework.util.ObjectUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,9 +19,11 @@ public class ShopMapper {
         shopDTO.setName(shop.getName());
         shopDTO.setPhone(shop.getPhone());
         shopDTO.setAddress(shop.getAddress());
-        List<UserDTO> userDTOS = shop.getUsers().stream().map(u->userMapper.toDTO(u)).collect(Collectors.toList());
+       /* if (!ObjectUtils.isEmpty(shop.getUsers())) {
+            List<UserDTO> userDTOS = shop.getUsers().stream().map(u -> userMapper.toDTO(u)).collect(Collectors.toList());
 
-        shopDTO.setUsers(userDTOS);
+            shopDTO.setUsers(userDTOS);
+        }*/
         return shopDTO;
     }
 
@@ -31,9 +34,12 @@ public class ShopMapper {
         shop.setName(shopDTO.getName());
         shop.setPhone(shopDTO.getPhone());
         shop.setAddress(shopDTO.getAddress());
-        List<User> users = shopDTO.getUsers().stream().map(u->userMapper.toEntity(u)).collect(Collectors.toList());
+       /* if (!ObjectUtils.isEmpty(shopDTO.getUsers())){
+            List<User> users = shopDTO.getUsers().stream().map(u->userMapper.toEntity(u)).collect(Collectors.toList());
+            shop.setUsers(users);
+        }*/
 
-        shop.setUsers(users);
+
         return shop;
     }
 

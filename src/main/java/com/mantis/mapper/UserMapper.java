@@ -17,7 +17,7 @@ public class UserMapper {
         _user.setId(user.getId());
         _user.setPhone(user.getPhone());
         _user.setEmail(user.getEmail());
-        GarageMapper garageMapper = new GarageMapper();
+        _user.setPassword(user.getPassword());
 
 
         return _user;
@@ -31,9 +31,7 @@ public class UserMapper {
         _user.setIdentityNumber(user.getIdentityNumber());
         _user.setPhone(user.getPhone());
         _user.setEmail(user.getEmail());
-        _user.setPassword(user.getPassword());
-        GarageMapper garageMapper = new GarageMapper();
-
+_user.setPassword(user.getPassword());
         return _user;
 
     }
