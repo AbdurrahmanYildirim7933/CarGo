@@ -63,7 +63,9 @@ public class AuthenticationFilter extends OncePerRequestFilter {
             authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
             SecurityContextHolder.getContext().setAuthentication(authenticationToken);
             SessionDTO session= new SessionDTO();
+            session.setId(user.getId());
             session.setName(user.getName());
+            session.setLastName(user.getLastName());
             authorizationLogic.setSession(session);
         }
         chain.doFilter(request, response);

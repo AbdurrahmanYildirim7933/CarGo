@@ -11,7 +11,7 @@ public interface UserVerificationRepository extends JpaRepository<UserVerificati
     @Query(value = "select  * from tbl_user_verification where user_id_id=:userId",nativeQuery = true)
     UserVerification getUserVerificationByUserId(@Param("userId") Integer userId);
     @Query(value = "select  * from tbl_user_verification where user_id_id=:userId and random_code=:code",nativeQuery = true)
-    UserVerification getUserVerificationByEmail(@Param("userId") Integer userId, @Param("code") String code);
+    UserVerification getUserVerificationByUserIdCode(@Param("userId") Integer userId, @Param("code") String code);
 
 
 

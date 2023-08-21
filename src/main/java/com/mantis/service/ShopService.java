@@ -26,16 +26,15 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 public class ShopService {
+
     @Autowired
     private ShopLogic shopLogic;
-
     private ShopMapper shopMapper= new ShopMapper();
     private ProductShopRelationMapper productShopRelationMapper = new ProductShopRelationMapper();
     @PreAuthorize("hasAuthority('CREATE_SHOP')")
     public ShopDTO createShop(ShopDTO shopDTO) {
         return  this.shopMapper.toDTO(shopLogic.createShop(shopMapper.toEntity(shopDTO))) ;
     }
-
     @PreAuthorize("hasAuthority('CREATE_PRODUCT_SHOP_RELATION')")
     public ProductShopRelationDTO createProductShopRelation(ProductShopRelationDTO productShopRelationDTO) {
         return  this.productShopRelationMapper.toDTO(shopLogic.createProductShopRelation(productShopRelationMapper.toEntity(productShopRelationDTO))) ;
@@ -44,17 +43,12 @@ public class ShopService {
     public void deleteShop(Integer id){
         shopLogic.deleteShop(id);
     }
-
     @PreAuthorize("hasAuthority('GET_SHOP')")
     public Page<ShopDTO> getShops(Pageable pageable){
         List <ShopDTO> dtoList =
                 shopLogic.getShops(pageable).getContent().stream()
                         .map(s->shopMapper.toDTO(s)).collect(Collectors.toList());
         Page<ShopDTO> dtoPages = new PageImpl<>(dtoList);
-
         return dtoPages;
     }
-
-
-
 }

@@ -108,7 +108,7 @@ public class UserLogic {
     public User setVerifiedById(Integer id,String code){
 
         UserVerification verification =
-                verificationRepository.getUserVerificationByEmail(id,code);
+                verificationRepository.getUserVerificationByUserIdCode(id,code);
 
         User user = userRepository.findById(verification.getUserId().getId()).get();
         user.setEmailVerified(true);

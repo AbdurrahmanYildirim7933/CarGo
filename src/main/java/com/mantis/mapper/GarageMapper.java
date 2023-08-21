@@ -1,7 +1,10 @@
 package com.mantis.mapper;
 
 import com.mantis.data.dto.GarageDTO;
+import com.mantis.data.dto.ShopDTO;
 import com.mantis.data.entity.Garage;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,19 +26,19 @@ public class GarageMapper {
         Garage _garage= new Garage();
         _garage.setId(garageDTO.getId());
         _garage.setName(garageDTO.getName());
-        _garage.setOwner(userMapper.toEntity(garageDTO.getOwner()));
+        if(garageDTO.getOwner()!=null){
+            _garage.setOwner(userMapper.toEntity(garageDTO.getOwner()));
+        }
         return _garage;
     }
-    public List<GarageDTO> toListDTO(List<Garage> garageEntities){
+    public List<GarageDTO> toListDTO(Page<Garage> garageEntities){
 
         return garageEntities.stream().map(g->toDTO(g)).collect(Collectors.toList());
     }
 
-    public List<Garage> toListEntity(List<GarageDTO> garageDTOS){
+    public List<Garage> toListEntity(Page<GarageDTO> garageDTOS){
 
         return garageDTOS.stream().map(g->toEntity(g)).collect(Collectors.toList());
     }
-
-
 
 }
