@@ -1,7 +1,5 @@
 package com.mantis.data.dto;
 
-import com.mantis.data.entity.User;
-
 import java.util.List;
 
 public class ShopDTO {
@@ -13,6 +11,7 @@ public class ShopDTO {
     private String address;
 
     private String phone;
+    private String owner;
 
     private List<UserDTO> users;
 
@@ -56,4 +55,11 @@ public class ShopDTO {
         this.phone = phone;
     }
 
+    public String getOwner() {
+        return this.owner;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
+    }
 }
