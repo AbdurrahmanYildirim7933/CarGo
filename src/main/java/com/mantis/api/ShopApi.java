@@ -1,5 +1,9 @@
 package com.mantis.api;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.github.fge.jsonpatch.JsonPatch;
+import com.github.fge.jsonpatch.JsonPatchException;
+import com.mantis.data.dto.GarageDTO;
 import com.mantis.data.dto.ProductShopRelationDTO;
 import com.mantis.data.dto.ShopDTO;
 import com.mantis.data.dto.ShopFilterDTO;
@@ -69,6 +73,10 @@ public class ShopApi {
         return  ResponseEntity.ok(shops);
 
     }
+    @GetMapping("/get-shop/{id}")
+    public ResponseEntity<ShopDTO> getShop(@PathVariable(name = "id", required = false) Integer id) {
+        return ResponseEntity.ok(shopService.getShop(id));
+    }
 
     @DeleteMapping("/delete-shop/{id}")
     public ResponseEntity<String> deleteShop(@PathVariable Integer id){
@@ -79,6 +87,12 @@ public class ShopApi {
     @GetMapping("/find-shop-name")
     public List<ShopDTO> findByName(@RequestParam String name){
         return shopService.findByName(name);
+
+    }
+    @PatchMapping("/update-shop")
+    public ResponseEntity<ShopDTO> updateShop(@RequestBody JsonPatch patch,@RequestParam(name = "id") Integer id)
+            throws JsonPatchException, JsonProcessingException {
+        return ResponseEntity.ok(shopService.updateShop(patch,id));
     }
 
 

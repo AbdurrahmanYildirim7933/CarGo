@@ -22,7 +22,7 @@ public class AuthenticationService {
         return (authorizationLogic.login(userMapper.toEntity(user)));
     }
 
-    @PreAuthorize("hasAuthority('GET_SESSION')")
+    ;//@PreAuthorize("hasAuthority('GET_SESSION')")
     public SessionDTO getMySession() {
         return authorizationLogic.getSession();
     }

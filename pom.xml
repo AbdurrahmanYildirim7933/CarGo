@@ -17,6 +17,12 @@
 		<java.version>17</java.version>
 	</properties>
 	<dependencies>
+		<!-- https://mvnrepository.com/artifact/com.github.fge/json-patch -->
+		<dependency>
+			<groupId>com.github.fge</groupId>
+			<artifactId>json-patch</artifactId>
+			<version>1.9</version>
+		</dependency>
 
 
 
@@ -119,8 +125,6 @@
 			<artifactId>spring-security-oauth2-resource-server</artifactId>
 			<version>6.1.1</version>
 		</dependency>
-
-
 
 	</dependencies>
 
