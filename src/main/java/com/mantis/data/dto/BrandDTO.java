@@ -1,18 +1,16 @@
 package com.mantis.data.dto;
 
 import com.mantis.data.entity.Car;
+import com.mantis.data.entity.Model;
+import jakarta.persistence.*;
 
 import java.util.List;
 
-public class GarageDTO {
-
+public class BrandDTO {
     private Integer id;
-
     private String name;
-
-    private UserDTO owner;
-
     private List<CarDTO> cars;
+    private List<ModelDTO> models;
 
     public Integer getId() {
         return id;
@@ -30,19 +28,19 @@ public class GarageDTO {
         this.name = name;
     }
 
-    public UserDTO getOwner() {
-        return owner;
-    }
-
-    public void setOwner(UserDTO owner) {
-        this.owner = owner;
-    }
-
     public List<CarDTO> getCars() {
         return cars;
     }
 
     public void setCars(List<CarDTO> cars) {
         this.cars = cars;
+    }
+
+    public List<ModelDTO> getModels() {
+        return models;
+    }
+
+    public void setModels(List<ModelDTO> models) {
+        this.models = models;
     }
 }

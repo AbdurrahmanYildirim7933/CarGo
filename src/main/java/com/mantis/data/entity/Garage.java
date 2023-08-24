@@ -1,5 +1,6 @@
 package com.mantis.data.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import org.antlr.v4.runtime.misc.NotNull;
 
@@ -15,7 +16,7 @@ public class Garage {
     private Integer id;
     @Column(name = "name", unique = true)
     private String name;
-
+    @JsonBackReference
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)

@@ -8,6 +8,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 public interface CarRepository extends JpaRepository<Car,Integer> {
-    @Query(value = "select  * from tbl_car where garage_id=:garageId",nativeQuery = true)
-    Page<Car> getCarsByGarageId(@Param("garageId") Integer garageId, Pageable pageable);
+    @Query(value = "select  * from tbl_car where garage_id=:id",nativeQuery = true)
+    Page<Car> getCarsByGarageId(@Param("id") Integer id, Pageable pageable);
+
+
 }
