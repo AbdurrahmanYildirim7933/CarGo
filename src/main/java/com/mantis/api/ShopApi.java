@@ -94,6 +94,16 @@ public class ShopApi {
             throws JsonPatchException, JsonProcessingException {
         return ResponseEntity.ok(shopService.updateShop(patch,id));
     }
+    @GetMapping("/check/{time}")
+    public Boolean checkPromise(@PathVariable int time){
+        try {
+            Thread.sleep(time*1000);
+        return true;
+        }catch (Exception e){
+          e.printStackTrace();
+        }
+        return false;
+    }
 
 
 }

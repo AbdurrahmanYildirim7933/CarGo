@@ -1,7 +1,6 @@
 package com.mantis.mapper;
 
 import com.github.fge.jsonpatch.JsonPatch;
-import com.github.fge.jsonpatch.Patch;
 import com.mantis.data.dto.GarageDTO;
 import com.mantis.data.dto.ShopDTO;
 import com.mantis.data.entity.Car;

@@ -1,5 +1,5 @@
 package com.mantis.handler;
-
+/*
 import com.mantis.exceptions.CustomException;
 import jakarta.persistence.EntityNotFoundException;
 import org.hibernate.ObjectNotFoundException;
@@ -31,3 +31,4 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return super.handleExceptionInternal(ex, body, headers, statusCode, request);
     }
 }
+*/
