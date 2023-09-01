@@ -2,18 +2,15 @@ package com.mantis.mapper;
 
 import com.mantis.data.dto.CarDTO;
 import com.mantis.data.dto.CarImageDTO;
-import com.mantis.data.dto.GarageDTO;
 import com.mantis.data.entity.Car;
 import com.mantis.data.entity.CarImage;
-import com.mantis.data.entity.Garage;
-import org.springframework.boot.Banner;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+public class CarFilterMapper {
 
-public class CarMapper {
     GarageMapper garageMapper = new GarageMapper();
     BrandMapper brandMapper = new BrandMapper();
     ModelMapper modelMapper = new ModelMapper();

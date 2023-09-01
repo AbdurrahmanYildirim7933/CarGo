@@ -1,11 +1,14 @@
 package com.mantis.logic;
 
-import com.mantis.data.dto.*;
+import com.mantis.data.dto.CarFilterDTO;
+import com.mantis.data.dto.GarageDTO;
+import com.mantis.data.dto.GarageFilterDTO;
+import com.mantis.data.dto.UserDTO;
+import com.mantis.data.entity.Car;
 import com.mantis.data.entity.Garage;
-import com.mantis.data.entity.Shop;
-import com.mantis.data.entity.User;
 import com.mantis.mapper.GarageMapper;
 import com.mantis.mapper.UserMapper;
+import com.mantis.repositories.CarRepository;
 import com.mantis.repositories.GarageRepository;
 import com.mantis.repositories.UserRepository;
 import jakarta.persistence.EntityManager;
@@ -19,41 +22,40 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public class GarageFilterLogic {
-
+public class CarFilterLogic {
     @Autowired
     EntityManager em;
 
     @Autowired
     GarageRepository garageRepository;
 
-     @Autowired
-    UserRepository userRepository;
+    @Autowired
+    CarRepository carRepository;
 
-    UserMapper userMapper = new UserMapper();
+    GarageMapper garageMapper = new GarageMapper();
 
     @Autowired
     AuthorizationLogic authorizationLogic;
-    public Page<Garage> searchGarageByTerm(GarageFilterDTO garage, Pageable pageable) {
-        UserDTO user = userMapper.toDTO(userRepository.findById(authorizationLogic.getSession().getId()).orElse(null));
-        garage.setOwner(user);
-        String sqlQuery= garage.getResultQuery();
+    public Page<Car> searchGarageByTerm(CarFilterDTO car, Integer garageId, Pageable pageable) {
+        GarageDTO garage = garageMapper.toDTO(garageRepository.findById(garageId).orElse(null));
+        car.setGarage(garage);
+        String sqlQuery= car.getResultQuery();
 
         int pageNumber = pageable.getPageNumber();
         int pageSize = pageable.getPageSize();
 
         int startPosition = pageNumber * pageSize;
-        Query query = em.createNativeQuery(sqlQuery,Garage.class);
+        Query query = em.createNativeQuery(sqlQuery,Car.class);
         query.setFirstResult(startPosition);
         query.setMaxResults(pageSize);
-        garage.getResultQ(query);
+        car.getResultQ(query);
 
 
-        List<Garage> resultList = query.getResultList();
+        List<Car> resultList = query.getResultList();
 
         // Fetch the total count for pagination
-        Query countQuery = em.createNativeQuery(garage.getCountQuery(),Long.class);
-        garage.getResultQ(countQuery);
+        Query countQuery = em.createNativeQuery(car.getCountQuery(),Long.class);
+        car.getResultQ(countQuery);
         Long countValue = (Long) countQuery.getSingleResult();
         Integer totalCount = Long.valueOf(countValue).intValue();
 

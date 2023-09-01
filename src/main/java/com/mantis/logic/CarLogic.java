@@ -1,18 +1,19 @@
 package com.mantis.logic;
 
 import com.mantis.data.dto.SessionDTO;
-import com.mantis.data.entity.Car;
-import com.mantis.data.entity.Garage;
-import com.mantis.data.entity.User;
-import com.mantis.repositories.CarRepository;
-import com.mantis.repositories.GarageRepository;
-import com.mantis.repositories.UserRepository;
+import com.mantis.data.entity.*;
+import com.mantis.repositories.*;
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.Base64;
+import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -20,6 +21,14 @@ public class CarLogic {
 
     @Autowired
     CarRepository carRepository;
+
+    @Autowired
+    BrandRepository brandRepository;
+
+    @Autowired
+    ModelRepository modelRepository;
+    @Autowired
+    CarImageRepository carImageRepository;
     @Autowired
     GarageRepository garageRepository;
     @Autowired
@@ -50,13 +59,12 @@ public class CarLogic {
         }
         carRepository.deleteById(id);
     }
-    public Car updateGarage(Integer id, Car newCar){
+    public Car updateCar(Integer id, Car newCar){
         Car oldCar = carRepository.findById(id).orElseThrow(()-> new RuntimeException("Garage cannot found"));
         oldCar.setBrand(newCar.getBrand());
         oldCar.setLicensePlate(newCar.getLicensePlate());
         oldCar.setYear(newCar.getYear());
         oldCar.setModel(newCar.getModel());
-        oldCar.setGarage(newCar.getGarage());
         carRepository.save(oldCar);
         return oldCar;
     }
@@ -71,4 +79,22 @@ public class CarLogic {
         return cars;
     }
 
+    public CarImage uploadImage(CarImage carImage,Integer carId) throws IOException {
+        Optional<Car> optionalCar = carRepository.findById(carId);
+        byte[] fileContent = FileUtils.readFileToByteArray(new File(carImage.getFileContentBase64()));
+        String encodedString = Base64.getEncoder().encodeToString(fileContent);
+        if (optionalCar.isPresent()) {
+            Car car = optionalCar.get();
+            carImage.setCar(car);
+        }
+        return carImageRepository.save(carImage);
+    }
+
+    public List<Brand> getAllBrands(){
+        return brandRepository.findAll();
+    }
+
+    public List<Model> getModelsByBrand(Integer brandId){
+        return modelRepository.getModelsByBrand(brandId);
+    }
 }

@@ -7,6 +7,7 @@ import com.github.fge.jsonpatch.JsonPatch;
 import com.github.fge.jsonpatch.JsonPatchException;
 import com.mantis.data.dto.*;
 import com.mantis.data.entity.Car;
+import com.mantis.data.entity.CarImage;
 import com.mantis.data.entity.Garage;
 import com.mantis.data.entity.User;
 import com.mantis.service.GarageService;
@@ -57,14 +58,14 @@ public class GarageApi {
         return objectMapper.treeToValue(patched, GarageDTO.class);
     }
     @PatchMapping(path="/update-garage/{id}",consumes = "application/json-patch+json")
-    public ResponseEntity<GarageDTO> updateGarage(@PathVariable Integer id, @RequestBody JsonPatch patch) throws JsonPatchException, JsonProcessingException {
+    public ResponseEntity<GarageDTO> updateGarage(@PathVariable  Integer id, @RequestBody JsonPatch patch) throws JsonPatchException, JsonProcessingException {
         GarageDTO garage = garageService.getGarage(id);
         GarageDTO patchedGarage = applyPatchToGarage(patch, garage);
         return ResponseEntity.ok(garageService.updateGarage(id,patchedGarage));
     }
 
     @PostMapping("/garages-by-active-user")
-    public ResponseEntity<List<GarageDTO>> getGarages(
+    public ResponseEntity<QueryModel> getGarages(
             @RequestParam(name = "page",defaultValue = "0") Integer page,
             @RequestParam(name = "size",defaultValue = "10") Integer size,
             @RequestParam(defaultValue = "name",required = false) String sortBy,
@@ -75,27 +76,11 @@ public class GarageApi {
         if (sortDirection.equalsIgnoreCase("DESC")) {
             direction = Sort.Direction.DESC;
         }
-        Page<GarageDTO> garagesPage = garageService.getGaragesByUserId(garageFilterDTO,PageRequest.of(page,size, direction, sortBy));
-        List<GarageDTO> garages= garagesPage.getContent();
-        return  ResponseEntity.ok(garages);
-
+        QueryModel garagesModel = garageService.getGaragesByUserId(garageFilterDTO,PageRequest.of(page,size, direction, sortBy));
+        return  ResponseEntity.ok(garagesModel);
     }
 
-    @GetMapping("/{id}/cars")
-    public ResponseEntity<List<CarDTO>> getCars(
-            @PathVariable Integer id,
-            @RequestParam(name = "page",defaultValue = "0") Integer page,
-            @RequestParam(name = "size",defaultValue = "10") Integer size,
-            @RequestParam(defaultValue = "id",required = false) String sortBy,
-            @RequestParam(name = "sort",defaultValue = "ASC",required = false) String sortDirection) {
-        Sort.Direction direction = Sort.Direction.ASC;
-        if (sortDirection.equalsIgnoreCase("DESC")) {
-            direction = Sort.Direction.DESC;
-        }
-        Page<CarDTO> garagesPage = garageService.getCarsByGarageId(id,PageRequest.of(page,size, direction, sortBy));
-        List<CarDTO> garages= garagesPage.getContent();
-        return  ResponseEntity.ok(garages);
 
-    }
+
 
 }

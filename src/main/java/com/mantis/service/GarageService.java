@@ -6,6 +6,7 @@ import com.github.fge.jsonpatch.JsonPatchException;
 import com.mantis.data.dto.*;
 import com.mantis.data.entity.Car;
 import com.mantis.data.entity.Garage;
+import com.mantis.logic.GarageFilterLogic;
 import com.mantis.logic.GarageLogic;
 import com.mantis.mapper.CarMapper;
 import com.mantis.mapper.GarageFilterMapper;
@@ -34,6 +35,8 @@ public class GarageService {
 
     @Autowired
     UserService userService;
+    @Autowired
+    GarageFilterLogic garageFilterLogic;
 
     CarMapper carMapper = new CarMapper();
     GarageMapper garageMapper = new GarageMapper();
@@ -59,16 +62,13 @@ public class GarageService {
         return garageMapper.toDTO(garageLogic.updateGarage(id,garageMapper.toEntity(garageDTO)));
     }
     @PreAuthorize("hasAuthority('GET_GARAGES_BY_USER')")
-    public Page<GarageDTO> getGaragesByUserId(GarageFilterDTO garageFilterDTO,Pageable pageable){
-        List <GarageDTO> dtoList = garageMapper.toListDTO(garageLogic.getGaragesByUserID(garageFilterDTO,pageable));
-        Page <GarageDTO> dtoPages = new PageImpl<>(dtoList);
-        return dtoPages;
+    public QueryModel getGaragesByUserId(GarageFilterDTO garageFilterDTO,Pageable pageable){
+        Page<GarageDTO> pageGarage = new PageImpl<>(garageMapper.toListDTO(garageFilterLogic.searchGarageByTerm(garageFilterDTO,pageable)));
+        List<GarageDTO> listGarage = pageGarage.getContent();
+        QueryModel queryModel = new QueryModel();
+        queryModel.setGarages(listGarage);
+        queryModel.setCount( garageFilterLogic.searchGarageByTerm(garageFilterDTO,pageable).getTotalElements());
+        queryModel.setPages( garageFilterLogic.searchGarageByTerm(garageFilterDTO,pageable).getTotalPages());
+        return queryModel;
     }
-
-    public Page<CarDTO> getCarsByGarageId(Integer id,Pageable pageable){
-        List < CarDTO> dtoCarList = carMapper.toListDTO(garageLogic.getCarsByGarageId(id,pageable));
-        Page <CarDTO> dtoCarPages = new PageImpl<>(dtoCarList);
-        return dtoCarPages;
-    }
-
 }

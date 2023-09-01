@@ -1,5 +1,7 @@
 package com.mantis.data.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.mantis.logic.UserLogic;
 import jakarta.persistence.*;
 import org.antlr.v4.runtime.misc.NotNull;
@@ -43,6 +45,7 @@ public class User {
     private Date verificationCodeExpiryDate;
     private String VerificationToken;
 
+    @JsonManagedReference
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "owner")
     private List<Garage> garages;
 

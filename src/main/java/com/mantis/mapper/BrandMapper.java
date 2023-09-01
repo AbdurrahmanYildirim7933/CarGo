@@ -7,6 +7,7 @@ import com.mantis.data.dto.UserDTO;
 import com.mantis.data.entity.Brand;
 import com.mantis.data.entity.Car;
 import com.mantis.data.entity.Model;
+import org.springframework.data.domain.Page;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.ObjectUtils;
 
@@ -30,5 +31,14 @@ public class BrandMapper {
         _brand.setName(brandDTO.getName());
 
         return _brand;
+    }
+
+    public List<BrandDTO> toListDTO(List<Brand> brands){
+
+        return brands.stream().map(b->toDTO(b)).collect(Collectors.toList());
+    }
+    public List<Brand> toListEntity(List<BrandDTO> brandDTOS){
+
+        return brandDTOS.stream().map(b->toEntity(b)).collect(Collectors.toList());
     }
 }

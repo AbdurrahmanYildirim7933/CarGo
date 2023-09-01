@@ -18,6 +18,7 @@ public class AuthorizationLogic {
 
     private JwtTokenUtil jwtTokenUtil = new JwtTokenUtil();
 
+
     private BCryptPasswordEncoder matcher = new BCryptPasswordEncoder();
 
     public String login(User user) {

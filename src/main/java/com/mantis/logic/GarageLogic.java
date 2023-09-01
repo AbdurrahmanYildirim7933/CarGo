@@ -71,7 +71,7 @@ public class   GarageLogic {
         garageRepository.save(oldGarage);
         return oldGarage;
     }
-    public Page<Garage> getGaragesByUserID(GarageFilterDTO garageFilterDTO,Pageable pageable) {
+    /*public Page<Garage> getGaragesByUserID(GarageFilterDTO garageFilterDTO,Pageable pageable) {
         if (ObjectUtils.isEmpty(authorizationLogic.getSession().getId())) {
             throw new RuntimeException("ID cannot be null");
         }
@@ -80,22 +80,7 @@ public class   GarageLogic {
             throw new RuntimeException("U dont have a garage right know please buy a garage for urself...");
         }
         return garages;
-    }
-    public Page<Car> getCarsByGarageId(Integer id,Pageable pageable) {
-        if (ObjectUtils.isEmpty(id)) {
-            throw new RuntimeException("Garage id cannot be null");
-        }
-        Page<Car> cars = carRepository.getCarsByGarageId(id,pageable);
-        if(ObjectUtils.isEmpty(cars)){
-            throw new RuntimeException("Garage is empty right know,u can buy a car");
-        }
-        return cars;
-    }
-    public List<Shop> findByName(String name) {
+    }*/
 
-        return garageRepository.findShopByName(name);
-    }
-    public List<Shop> searchShopByTerm(Garage garage){
-        return null;
-    }
+
 }

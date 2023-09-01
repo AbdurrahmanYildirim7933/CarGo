@@ -63,17 +63,21 @@ public class GarageFilterDTO {
         params.put("userId",owner.getId());
 
         if (!ObjectUtils.isEmpty(getName())) {
-            query += " AND s.name ILIKE :name";
+            query += " AND g.name ILIKE :name";
             params.put("name","%"+name+"%");
+        }
+        if (!ObjectUtils.isEmpty(getId()) && !getId().equals(null) && !getId().equals(0)) {
+            query += " AND g.id=:id";
+            params.put("id",+id);
         }
         return query;
     }
 
     public String getResultQuery(){
-        return "SELECT * FROM tbl_garage as s WHERE 1=1  "+getQuery();
+        return "SELECT * FROM tbl_garage as g WHERE 1=1"+getQuery();
     }
     public String getCountQuery(){
-        return "SELECT count(*) FROM tbl_garage as s WHERE 1=1 "+getQuery();
+        return "SELECT count(*) FROM tbl_garage as g WHERE 1=1"+getQuery();
     }
 
     public Query getResultQ(Query q){

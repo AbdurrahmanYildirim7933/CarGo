@@ -3,6 +3,8 @@ package com.mantis.data.entity;
 import jakarta.persistence.*;
 import org.antlr.v4.runtime.misc.NotNull;
 
+import java.util.List;
+
 @Entity
 @Table(name="tbl_car", uniqueConstraints = @UniqueConstraint(columnNames = { "brand", "year", "model", "license_plate" }))
 public class Car {
@@ -27,6 +29,17 @@ public class Car {
         @ManyToOne
         @JoinColumn(name ="model", nullable = false)
         private Model model;
+
+        @OneToMany(fetch = FetchType.LAZY, mappedBy = "car")
+        private List<CarImage> carImages;
+
+        public List<CarImage> getImages() {
+                return carImages;
+        }
+
+        public void setImages(List<CarImage> carImages) {
+                this.carImages = carImages;
+        }
 
         public Integer getId() {
                 return id;

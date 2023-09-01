@@ -9,8 +9,6 @@ import java.util.List;
 public class BrandDTO {
     private Integer id;
     private String name;
-    private List<CarDTO> cars;
-    private List<ModelDTO> models;
 
     public Integer getId() {
         return id;
@@ -28,19 +26,4 @@ public class BrandDTO {
         this.name = name;
     }
 
-    public List<CarDTO> getCars() {
-        return cars;
-    }
-
-    public void setCars(List<CarDTO> cars) {
-        this.cars = cars;
-    }
-
-    public List<ModelDTO> getModels() {
-        return models;
-    }
-
-    public void setModels(List<ModelDTO> models) {
-        this.models = models;
-    }
 }

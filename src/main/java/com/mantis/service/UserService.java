@@ -22,20 +22,20 @@ public class UserService {
     @Autowired
     private UserLogic userLogic;
     private UserRepository userRepository;
-    private UserMapper userMapper= new UserMapper();
+    private UserMapper userMapper = new UserMapper();
 
 
-    public UserDTO findById(Integer id){
-      return  this.userMapper.toDTO(userLogic.findById(id)) ;
+    public UserDTO findById(Integer id) {
+        return this.userMapper.toDTO(userLogic.findById(id));
     }
 
     public UserDTO createUser(UserDTO userDTO) throws MessagingException {
-        return  this.userMapper.toDTO(userLogic.createUser(userMapper.toEntity(userDTO))) ;
+        return this.userMapper.toDTO(userLogic.createUser(userMapper.toEntity(userDTO)));
     }
 
-    public UserDTO verifyByUser(UserDTO user){
+    public UserDTO verifyByUser(UserDTO user) {
 
-  return this.userMapper.toDTO(userLogic.setVerifiedById(user.getId(),user.getVerifyCode()));
+        return this.userMapper.toDTO(userLogic.setVerifiedById(user.getId(), user.getVerifyCode()));
 
     }
 
@@ -43,6 +43,7 @@ public class UserService {
     public void deleteUser(Integer id) {
         userLogic.deleteUser(id);
     }
+
 
     @PreAuthorize("hasAuthority('UPDATE_USER')")
     public UserDTO updateUser(Integer id, UserDTO userDTO) {
