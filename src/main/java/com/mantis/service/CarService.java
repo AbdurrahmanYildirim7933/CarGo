@@ -63,8 +63,17 @@ public class CarService {
         return brandMapper.toListDTO(carLogic.getAllBrands());
     }
 
+    public BrandDTO getBrand(Integer id){
+        return brandMapper.toDTO(carLogic.getBrand(id));
+    }
+
     public List<ModelDTO> getModelsByBrand(Integer brandId){
         return modelMapper.toListDTO(carLogic.getModelsByBrand(brandId));
     }
+
+    public ModelDTO getModel(Integer id) {
+        return modelMapper.toDTO(carLogic.getModel(id));
+    }
+
 }
 

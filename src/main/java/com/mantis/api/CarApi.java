@@ -74,8 +74,17 @@ public class CarApi {
         return ResponseEntity.ok(carService.getBrands());
     }
 
+    @GetMapping("/get-brand/{id}")
+    public ResponseEntity<BrandDTO> getBrand(@PathVariable Integer id){
+        return ResponseEntity.ok(carService.getBrand(id));
+    }
+
     @GetMapping(path = "/{id}/models")
     public ResponseEntity<List<ModelDTO>> getModelsByBrand(@PathVariable Integer id){
         return ResponseEntity.ok(carService.getModelsByBrand(id));
+    }
+    @GetMapping("/get-model/{id}")
+    public ResponseEntity<ModelDTO> getModel(@PathVariable Integer id){
+        return ResponseEntity.ok(carService.getModel(id));
     }
 }

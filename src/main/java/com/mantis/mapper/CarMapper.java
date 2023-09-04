@@ -21,10 +21,16 @@ public class CarMapper {
 
         CarDTO _car = new CarDTO();
         _car.setId(car.getId());
-        _car.setBrand(brandMapper.toDTO(car.getBrand()));
-        _car.setGarage(garageMapper.toDTO(car.getGarage()));
+        if (car.getBrand() != null) {
+            _car.setBrand(brandMapper.toDTO(car.getBrand()));
+        }
+        if (car.getGarage() != null) {
+            _car.setGarage(garageMapper.toDTO(car.getGarage()));
+        }
         _car.setLicensePlate(car.getLicensePlate());
-        _car.setModel(modelMapper.toDTO(car.getModel()));
+        if(car.getModel()!= null) {
+            _car.setModel(modelMapper.toDTO(car.getModel()));
+        }
         _car.setYear(car.getYear());
 
         return _car;}
@@ -32,10 +38,16 @@ public class CarMapper {
 
         Car _car = new Car();
         _car.setId(carDTO.getId());
-        _car.setBrand(brandMapper.toEntity(carDTO.getBrand()));
-        _car.setGarage(garageMapper.toEntity(carDTO.getGarage()));
+        if (carDTO.getBrand() != null) {
+            _car.setBrand(brandMapper.toEntity(carDTO.getBrand()));
+        }
+        if (carDTO.getGarage() != null) {
+            _car.setGarage(garageMapper.toEntity(carDTO.getGarage()));
+        }
         _car.setLicensePlate(carDTO.getLicensePlate());
-        _car.setModel(modelMapper.toEntity(carDTO.getModel()));
+        if(carDTO.getModel()!= null) {
+            _car.setModel(modelMapper.toEntity(carDTO.getModel()));
+        }
         _car.setYear(carDTO.getYear());
         return _car;
     }

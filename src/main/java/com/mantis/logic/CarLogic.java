@@ -1,6 +1,5 @@
 package com.mantis.logic;
 
-import com.mantis.data.dto.SessionDTO;
 import com.mantis.data.entity.*;
 import com.mantis.repositories.*;
 import org.apache.commons.io.FileUtils;
@@ -39,8 +38,6 @@ public class CarLogic {
 
     public Car createCar(Car car,Integer garageId)
     {
-        SessionDTO session;
-        session = authorizationLogic.getSession();
         Optional<Garage> optionalGarage = garageRepository.findById(garageId);
         if (optionalGarage.isPresent()) {
             Garage garage = optionalGarage.get();
@@ -96,5 +93,23 @@ public class CarLogic {
 
     public List<Model> getModelsByBrand(Integer brandId){
         return modelRepository.getModelsByBrand(brandId);
+    }
+
+    public Brand getBrand(Integer id) {
+        Optional<Brand> optionalBrand = brandRepository.findById(id);
+        if (optionalBrand.isPresent()) {
+            Brand brand = optionalBrand.get();
+            return brand;
+        }
+        return null;
+    }
+
+    public Model getModel(Integer id) {
+        Optional<Model> optionalModel = modelRepository.findById(id);
+        if (optionalModel.isPresent()) {
+            Model model = optionalModel.get();
+            return model;
+        }
+        return null;
     }
 }
