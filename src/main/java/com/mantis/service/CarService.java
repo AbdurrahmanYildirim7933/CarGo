@@ -1,6 +1,9 @@
 package com.mantis.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.fge.jsonpatch.JsonPatch;
 import com.github.fge.jsonpatch.JsonPatchException;
 import com.mantis.data.dto.*;
 import com.mantis.data.entity.Car;
@@ -31,6 +34,8 @@ public class CarService {
     CarMapper carMapper = new CarMapper();
     BrandMapper brandMapper = new BrandMapper();
     ModelMapper modelMapper = new ModelMapper();
+
+    ObjectMapper objectMapper = new ObjectMapper();
     public CarDTO createCar(Integer id,CarDTO carDTO) {
         return  carMapper.toDTO(carLogic.createCar(carMapper.toEntity(carDTO),id));
     }
@@ -40,12 +45,19 @@ public class CarService {
     public void deleteGarage(Integer id){
         carLogic.deleteGarage(id);
     }
-    public CarDTO updateCar(Integer id, CarDTO carDTO) throws JsonPatchException, JsonProcessingException {
-        return carMapper.toDTO(carLogic.updateCar(id,carMapper.toEntity(carDTO)));
+    public CarDTO updateCar(Integer id, JsonPatch patch) throws JsonPatchException, JsonProcessingException {
+        CarDTO carDTO = getCar(id);
+        CarDTO patchedCar = applyPatchToCar(patch, carDTO);
+        return carMapper.toDTO(carLogic.updateCar(id,carMapper.toEntity(patchedCar)));
     }
-    public CarImageDTO uploadImage(CarImageDTO carImageDTO, Integer carId) throws IOException {
-        return  carMapper.imageToDTO(carLogic.uploadImage(carMapper.imageToEntity(carImageDTO),carId));
+    public List<CarImageDTO> uploadImages(List<CarImageDTO> carImageDTOList, Integer carId) throws IOException {
+        return  carMapper.imagesToListDTO(carLogic.uploadImage(carMapper.imagesToListEntity(carImageDTOList),carId));
     }
+
+    public List<CarImageDTO> getImagesByCar(Integer id){
+        return carMapper.imagesToListDTO(carLogic.getImagesByCar(id));
+    }
+
     public QueryModel getCarsByGarageId(CarFilterDTO carFilterDTO,Integer id, Pageable pageable){
         Page<CarDTO> carDTOPage = new PageImpl<>(carMapper.toListDTO(carFilterLogic.searchGarageByTerm(carFilterDTO,id,pageable)));
         List< CarDTO> dtoCarList = carDTOPage.getContent();
@@ -75,5 +87,9 @@ public class CarService {
         return modelMapper.toDTO(carLogic.getModel(id));
     }
 
-}
+
+    private CarDTO applyPatchToCar(JsonPatch patch, CarDTO targetCar) throws JsonPatchException, JsonProcessingException {
+        JsonNode patched = patch.apply(objectMapper.convertValue(targetCar, JsonNode.class));
+        return objectMapper.treeToValue(patched, CarDTO.class);
+}}
 

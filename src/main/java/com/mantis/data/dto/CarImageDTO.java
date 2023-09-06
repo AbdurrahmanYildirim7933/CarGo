@@ -10,7 +10,9 @@ public class CarImageDTO {
 
     private String name;
 
-    private String fileContentBase64;
+    private String filebase64;
+
+    private String type;
 
     private CarDTO car;
 
@@ -30,13 +32,7 @@ public class CarImageDTO {
         this.name = name;
     }
 
-    public String getFileContentBase64() {
-        return fileContentBase64;
-    }
 
-    public void setFileContentBase64(String fileContentBase64) {
-        this.fileContentBase64 = fileContentBase64;
-    }
 
     public CarDTO getCar() {
         return car;
@@ -46,12 +42,29 @@ public class CarImageDTO {
         this.car = car;
     }
 
+    public String getFilebase64() {
+        return filebase64;
+    }
+
+    public void setFilebase64(String filebase64) {
+        this.filebase64 = filebase64;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     @Override
     public String toString() {
         return "CarImageDTO{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", fileContentBase64='" + fileContentBase64 + '\'' +
+                ", filebase64='" + filebase64 + '\'' +
+                ", type='" + type + '\'' +
                 ", car=" + car +
                 '}';
     }

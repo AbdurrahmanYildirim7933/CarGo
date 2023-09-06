@@ -9,11 +9,16 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 
+import java.awt.*;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
+import java.util.zip.DataFormatException;
+import java.util.zip.Deflater;
+import java.util.zip.Inflater;
 
 @Component
 public class CarLogic {
@@ -59,7 +64,7 @@ public class CarLogic {
     public Car updateCar(Integer id, Car newCar){
         Car oldCar = carRepository.findById(id).orElseThrow(()-> new RuntimeException("Garage cannot found"));
         oldCar.setBrand(newCar.getBrand());
-        oldCar.setLicensePlate(newCar.getLicensePlate());
+        oldCar.setLicensePlate(newCar.getLicensePlate().toUpperCase());
         oldCar.setYear(newCar.getYear());
         oldCar.setModel(newCar.getModel());
         carRepository.save(oldCar);
@@ -76,15 +81,22 @@ public class CarLogic {
         return cars;
     }
 
-    public CarImage uploadImage(CarImage carImage,Integer carId) throws IOException {
+    public List<CarImage> uploadImage(List<CarImage> carImageList,Integer carId) throws IOException {
         Optional<Car> optionalCar = carRepository.findById(carId);
-        byte[] fileContent = FileUtils.readFileToByteArray(new File(carImage.getFileContentBase64()));
-        String encodedString = Base64.getEncoder().encodeToString(fileContent);
+        CarImage img = new CarImage();
         if (optionalCar.isPresent()) {
             Car car = optionalCar.get();
-            carImage.setCar(car);
+            carImageList.stream().forEach(c-> c.setCar(car));
         }
-        return carImageRepository.save(carImage);
+        return carImageRepository.saveAll(carImageList);
+    }
+
+    public List<CarImage> getImagesByCar(Integer id) {
+
+        final List<CarImage> retrievedImages = carImageRepository.getImagesByCar(id);
+        retrievedImages.stream().forEach(r-> new CarImage(r.getName(),r.getType(), r.getFilebase64()));
+        return retrievedImages;
+
     }
 
     public List<Brand> getAllBrands(){
@@ -112,4 +124,7 @@ public class CarLogic {
         }
         return null;
     }
+
+
+
 }

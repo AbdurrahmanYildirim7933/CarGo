@@ -60,7 +60,8 @@ public class ShopFilterDTO {
 
 
     private String getQuery() {
-        String query = "";        this.params = new HashMap();
+        String query = "";
+        this.params = new HashMap();
         if (!ObjectUtils.isEmpty(getName())) {
             query += " AND s.name ILIKE :name";
             params.put("name","%"+name+"%");

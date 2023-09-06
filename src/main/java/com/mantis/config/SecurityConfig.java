@@ -25,11 +25,11 @@ public class SecurityConfig{
  public BCryptPasswordEncoder passwordEncoder() {
      return new BCryptPasswordEncoder();
  }
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
 
-        return http.
-        csrf(c->c.disable()).cors(cors->cors.configurationSource(getCorsConfigurationSource()))
+        return http.csrf(c->c.disable()).cors(cors->cors.configurationSource(getCorsConfigurationSource()))
                 .authorizeHttpRequests(auth ->
                         auth.requestMatchers("api/v1/auth/login",
                                         "api/v1/user/create-user","api/v1/email/**","api/v1/auth/me",
@@ -39,7 +39,6 @@ public class SecurityConfig{
                 ).build();
 
     }
-
     @Bean
     public CorsConfigurationSource getCorsConfigurationSource()
     {

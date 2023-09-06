@@ -45,9 +45,14 @@ public class CarApi {
     public ResponseEntity<CarDTO> getCar(@PathVariable(name = "id", required = false) Integer id) {
         return ResponseEntity.ok(carService.getCar(id));
     }
-    @PostMapping("/upload-car-image")
-    public ResponseEntity<CarImageDTO> uploadImage(@RequestBody CarImageDTO carImageDTO,@PathVariable Integer carId) throws IOException {
-        return ResponseEntity.ok(carService.uploadImage(carImageDTO,carId));
+
+    @GetMapping("/get-images/{id}")
+    public ResponseEntity<List<CarImageDTO>> getImagesByCar(@PathVariable(name = "id", required = false) Integer id) {
+        return ResponseEntity.ok(carService.getImagesByCar(id));
+    }
+    @PostMapping("/create-images/{id}")
+    public ResponseEntity<List<CarImageDTO>> uploadImage(@RequestBody List<CarImageDTO> carImageDTOList,@PathVariable(name = "id", required = false) Integer id) throws IOException {
+        return ResponseEntity.ok(carService.uploadImages(carImageDTOList,id));
     }
     @PostMapping("/{id}/create-car")
     public ResponseEntity<CarDTO> createGarage(@RequestBody CarDTO carDTO,@PathVariable Integer id) {
@@ -58,15 +63,11 @@ public class CarApi {
         carService.deleteGarage(id);
         return ResponseEntity.ok("Garage has been deleted succesfully");
     }
-    private CarDTO applyPatchToCar(JsonPatch patch, CarDTO targetCar) throws JsonPatchException, JsonProcessingException {
-        JsonNode patched = patch.apply(objectMapper.convertValue(targetCar, JsonNode.class));
-        return objectMapper.treeToValue(patched, CarDTO.class);
-    }
+
     @PatchMapping(path="/update-car/{id}",consumes = "application/json-patch+json")
     public ResponseEntity<CarDTO> updateGarage(@PathVariable  Integer id, @RequestBody JsonPatch patch) throws JsonPatchException, JsonProcessingException {
-        CarDTO carDTO = carService.getCar(id);
-        CarDTO patchedCar = applyPatchToCar(patch, carDTO);
-        return ResponseEntity.ok(carService.updateCar(id,patchedCar));
+
+        return ResponseEntity.ok(carService.updateCar(id,patch));
     }
 
     @GetMapping("/brands")
@@ -87,4 +88,6 @@ public class CarApi {
     public ResponseEntity<ModelDTO> getModel(@PathVariable Integer id){
         return ResponseEntity.ok(carService.getModel(id));
     }
+
+
 }

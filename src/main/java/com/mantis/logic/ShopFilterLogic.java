@@ -17,13 +17,13 @@ public class ShopFilterLogic {
     @Autowired EntityManager em;
   public Page<Shop> searchShopByTerm(ShopFilterDTO shop, Pageable pageable) {
 
-        String sqlQuery= shop.getResultQuery();
+      String sqlQuery= shop.getResultQuery();
 
       int pageNumber = pageable.getPageNumber();
       int pageSize = pageable.getPageSize();
 
       int startPosition = pageNumber * pageSize;
-        Query query = em.createNativeQuery(sqlQuery,Shop.class);
+      Query query = em.createNativeQuery(sqlQuery,Shop.class);
       query.setFirstResult(startPosition);
       query.setMaxResults(pageSize);
       shop.getResultQ(query);

@@ -14,9 +14,11 @@ public class CarImage {
     @Column(name = "name")
     private String name;
 
-    @Lob
-    @Column(name = "fileContent")
-    private String fileContentBase64;
+    @Column(name = "type")
+    private String type;
+
+    @Column(name = "filebase64",length = 500000)
+    private String filebase64;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
@@ -39,12 +41,21 @@ public class CarImage {
         this.name = name;
     }
 
-    public String getFileContentBase64() {
-        return fileContentBase64;
+    public String getType() {
+        return type;
     }
 
-    public void setFileContentBase64(String fileContentBase64) {
-        this.fileContentBase64 = fileContentBase64;
+    public void setType(String type) {
+        this.type = type;
+    }
+
+
+    public String getFilebase64() {
+        return filebase64;
+    }
+
+    public void setFilebase64(String filebase64) {
+        this.filebase64 = filebase64;
     }
 
     public Car getCar() {
@@ -54,4 +65,14 @@ public class CarImage {
     public void setCar(Car car) {
         this.car = car;
     }
+    public CarImage() {
+    }
+
+    public CarImage(String name, String type, String filebase64) {
+        this.name = name;
+        this.type = type;
+        this.filebase64 = filebase64;
+    }
+
+
 }

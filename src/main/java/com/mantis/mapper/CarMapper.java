@@ -66,8 +66,11 @@ public class CarMapper {
         CarImage _car = new CarImage();
         _car.setId(carImageDTO.getId());
         _car.setName(carImageDTO.getName());
-        _car.setFileContentBase64(carImageDTO.getFileContentBase64());
-        _car.setCar(toEntity(carImageDTO.getCar()));
+        _car.setFilebase64(carImageDTO.getFilebase64());
+        _car.setType(carImageDTO.getType());
+        if(carImageDTO.getCar()!= null) {
+            _car.setCar(toEntity(carImageDTO.getCar()));
+        }
         return _car;
     }
 
@@ -76,8 +79,20 @@ public class CarMapper {
         CarImageDTO _car = new CarImageDTO();
         _car.setId(carImage.getId());
         _car.setName(carImage.getName());
-        _car.setFileContentBase64(carImage.getFileContentBase64());
-        _car.setCar(toDTO(carImage.getCar()));
+        _car.setFilebase64(carImage.getFilebase64());
+        _car.setType(carImage.getType());
+        if(carImage.getCar()!=null) {
+            _car.setCar(toDTO(carImage.getCar()));
+        }
         return _car;
+    }
+
+    public List<CarImageDTO> imagesToListDTO(List<CarImage> carImageEntities){
+
+        return carImageEntities.stream().map(i->imageToDTO(i)).collect(Collectors.toList());
+    }
+    public List<CarImage> imagesToListEntity(List<CarImageDTO> carImageDTOS){
+
+        return carImageDTOS.stream().map(i->imageToEntity(i)).collect(Collectors.toList());
     }
 }

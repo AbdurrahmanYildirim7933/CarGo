@@ -51,7 +51,7 @@ public class CarFilterMapper {
         CarImage _car = new CarImage();
         _car.setId(carImageDTO.getId());
         _car.setName(carImageDTO.getName());
-        _car.setFileContentBase64(carImageDTO.getFileContentBase64());
+        _car.setFilebase64(carImageDTO.getFilebase64());
         _car.setCar(toEntity(carImageDTO.getCar()));
         return _car;
     }
@@ -61,7 +61,7 @@ public class CarFilterMapper {
         CarImageDTO _car = new CarImageDTO();
         _car.setId(carImage.getId());
         _car.setName(carImage.getName());
-        _car.setFileContentBase64(carImage.getFileContentBase64());
+        _car.setFilebase64(carImage.getFilebase64());
         _car.setCar(toDTO(carImage.getCar()));
         return _car;
     }

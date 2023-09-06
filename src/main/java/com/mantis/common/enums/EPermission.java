@@ -22,9 +22,7 @@ public enum EPermission {
     GET_GARAGES_BY_USER,
     UPDATE_GARAGE,
     GET_GARAGE,
-    GET_SESSION;
-
-
+    GET_SESSION,
 
 
 }
