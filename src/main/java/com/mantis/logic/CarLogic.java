@@ -13,6 +13,7 @@ import java.awt.*;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
@@ -41,8 +42,7 @@ public class CarLogic {
     AuthorizationLogic authorizationLogic;
 
 
-    public Car createCar(Car car,Integer garageId)
-    {
+    public Car createCar(Car car, Integer garageId) {
         Optional<Garage> optionalGarage = garageRepository.findById(garageId);
         if (optionalGarage.isPresent()) {
             Garage garage = optionalGarage.get();
@@ -51,18 +51,20 @@ public class CarLogic {
         }
         throw new RuntimeException("Hata garaj bulunamadı");
     }
-    public Car getCar(Integer id){
+
+    public Car getCar(Integer id) {
         return carRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Car cannot found"));
     }
-    public void deleteGarage(Integer id){
-        if (id == null || id == 0) {
-            throw new RuntimeException("ID cannot be null");
-        }
+
+    public void deleteCar(Integer id) {
+        List<CarImage> carImageList = carImageRepository.getImagesByCar(id);
+        carImageRepository.deleteAll(carImageList);
         carRepository.deleteById(id);
     }
-    public Car updateCar(Integer id, Car newCar){
-        Car oldCar = carRepository.findById(id).orElseThrow(()-> new RuntimeException("Garage cannot found"));
+
+    public Car updateCar(Integer id, Car newCar) {
+        Car oldCar = carRepository.findById(id).orElseThrow(() -> new RuntimeException("Garage cannot found"));
         oldCar.setBrand(newCar.getBrand());
         oldCar.setLicensePlate(newCar.getLicensePlate().toUpperCase());
         oldCar.setYear(newCar.getYear());
@@ -70,40 +72,45 @@ public class CarLogic {
         carRepository.save(oldCar);
         return oldCar;
     }
-    public Page<Car> getCarsByGarageId(Integer id,Pageable pageable) {
-        if (ObjectUtils.isEmpty(authorizationLogic.getSession())){
+
+    public Page<Car> getCarsByGarageId(Integer id, Pageable pageable) {
+        if (ObjectUtils.isEmpty(authorizationLogic.getSession())) {
             throw new RuntimeException("User cannot be found");
         }
-        Page<Car> cars = carRepository.getCarsByGarageId(id,pageable);
-        if(ObjectUtils.isEmpty(cars)){
+        Page<Car> cars = carRepository.getCarsByGarageId(id, pageable);
+        if (ObjectUtils.isEmpty(cars)) {
             throw new RuntimeException("Garage is empty right now,There are currently no cars in your garage");
         }
         return cars;
     }
 
-    public List<CarImage> uploadImage(List<CarImage> carImageList,Integer carId) throws IOException {
+    public List<CarImage> uploadImage(List<CarImage> carImageList, Integer carId) throws IOException {
         Optional<Car> optionalCar = carRepository.findById(carId);
         CarImage img = new CarImage();
         if (optionalCar.isPresent()) {
             Car car = optionalCar.get();
-            carImageList.stream().forEach(c-> c.setCar(car));
+            carImageList.stream().forEach(c -> c.setCar(car));
         }
         return carImageRepository.saveAll(carImageList);
+    }
+
+    public void deleteImages(List<Integer> carImagesIds) {
+        carImageRepository.deleteAllById(carImagesIds);
     }
 
     public List<CarImage> getImagesByCar(Integer id) {
 
         final List<CarImage> retrievedImages = carImageRepository.getImagesByCar(id);
-        retrievedImages.stream().forEach(r-> new CarImage(r.getName(),r.getType(), r.getFilebase64()));
+        retrievedImages.stream().forEach(r -> new CarImage(r.getName(), r.getType(), r.getFilebase64()));
         return retrievedImages;
 
     }
 
-    public List<Brand> getAllBrands(){
+    public List<Brand> getAllBrands() {
         return brandRepository.findAll();
     }
 
-    public List<Model> getModelsByBrand(Integer brandId){
+    public List<Model> getModelsByBrand(Integer brandId) {
         return modelRepository.getModelsByBrand(brandId);
     }
 
@@ -124,7 +131,5 @@ public class CarLogic {
         }
         return null;
     }
-
-
 
 }

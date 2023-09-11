@@ -21,16 +21,14 @@ import java.util.UUID;
 public class UserService {
     @Autowired
     private UserLogic userLogic;
-    private UserRepository userRepository;
     private UserMapper userMapper = new UserMapper();
-
-
-    public UserDTO findById(Integer id) {
-        return this.userMapper.toDTO(userLogic.findById(id));
-    }
 
     public UserDTO createUser(UserDTO userDTO) throws MessagingException {
         return this.userMapper.toDTO(userLogic.createUser(userMapper.toEntity(userDTO)));
+    }
+
+    public UserDTO findById(Integer id) {
+        return this.userMapper.toDTO(userLogic.findById(id));
     }
 
     public UserDTO verifyByUser(UserDTO user) {

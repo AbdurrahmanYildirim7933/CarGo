@@ -19,7 +19,6 @@ public interface GarageRepository extends JpaRepository<Garage, Integer> {
 
 
    @Query(value = "select * from tbl_garage where name ilike %:name%",nativeQuery = true)
-   List<Shop> findShopByName(@Param("name") String name);
-
+   List<Shop> findGarageByName(@Param("name") String name);
 
 }

@@ -26,12 +26,9 @@ import java.util.List;
 @RestController
 @RequestMapping("api/v1/garage")
 public class GarageApi {
-@Autowired
-    private UserService userService;
+
     @Autowired
     private GarageService garageService;
-
-
 
     ObjectMapper objectMapper = new ObjectMapper();
 
@@ -48,9 +45,10 @@ public class GarageApi {
     }
 
     @DeleteMapping("/delete-garage/{id}")
-    public ResponseEntity<String> deleteGarage(@PathVariable Integer id){
+    public ResponseEntity<GarageDTO> deleteGarage(@PathVariable Integer id){
+        GarageDTO deletedGarage = garageService.getGarage(id);
         garageService.deleteGarage(id);
-        return ResponseEntity.ok("Garage has been deleted succesfully");
+        return ResponseEntity.ok(deletedGarage);
     }
 
     private GarageDTO applyPatchToGarage(JsonPatch patch, GarageDTO targetGarage) throws JsonPatchException, JsonProcessingException {

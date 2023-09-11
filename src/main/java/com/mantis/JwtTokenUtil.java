@@ -14,11 +14,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 
 public class JwtTokenUtil {
-
-
-
-//     @Value("${spring.jwt.secret}")
-    private String secretKey = "TG9yZW1JcHN1bWpkaXpnaXZlYmFza8SxZW5kw7xzdHJpc2luZGVrdWxsYW7EsWxhbm3EsWfEsXJtZXRpbmxlcmRpcmxM";
+  private String secretKey = "TG9yZW1JcHN1bWpkaXpnaXZlYmFza8SxZW5kw7xzdHJpc2luZGVrdWxsYW7EsWxhbm3EsWfEsXJtZXRpbmxlcmRpcmxM";
 
     private long expiration=999999;
             //=15 * 60;

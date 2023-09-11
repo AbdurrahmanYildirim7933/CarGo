@@ -57,10 +57,6 @@ public class UserLogic {
     }
 
     public User createUser(User user) throws MessagingException {
-        /*if (!ObjectUtils.isEmpty(user.getId())) {
-
-            throw new CustomException("xxxxx", "yyyyyyy");
-        }*/
         user = checkObjectValidation(user);
         boolean isPaswordValid = true;
         if (isPaswordValid) {
@@ -73,9 +69,7 @@ public class UserLogic {
             throw new IllegalArgumentException("Invalid email format");
 
         }
-
         UUID uuid = UUID.randomUUID();
-
         List<Role> roles = new ArrayList();
         roles.add(roleRepository.findRoleByName("User"));
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(10);
@@ -89,8 +83,7 @@ public class UserLogic {
         userVerification.setUserId(newUser);
         verificationRepository.save(userVerification);
         emailLogic.sendEmailWithUUID(newUser.getEmail(), "E-posta Doğrulama-cargo",
-                verificationRepository.getUserVerificationByUserId(newUser.getId()).getId().toString(), user.getEmailVerificationCode(), newUser.getId());
-
+        verificationRepository.getUserVerificationByUserId(newUser.getId()).getId().toString(), user.getEmailVerificationCode(), newUser.getId());
         return newUser;
     }
     private String generateRandomCode(int length){

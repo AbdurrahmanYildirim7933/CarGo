@@ -21,9 +21,12 @@ public class Garage {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User owner;
-
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "garage")
     private List<Car> cars;
+
+
+
+
 
 
 

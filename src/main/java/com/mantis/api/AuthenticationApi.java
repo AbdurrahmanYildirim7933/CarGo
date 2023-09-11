@@ -35,7 +35,6 @@ public class AuthenticationApi {
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
-
     }
 
     @GetMapping("/me")

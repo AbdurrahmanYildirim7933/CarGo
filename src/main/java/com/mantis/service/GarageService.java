@@ -49,10 +49,13 @@ public class GarageService {
     public GarageDTO createGarage(GarageDTO garageDTO) {
         return  garageMapper.toDTO(garageLogic.createGarage(garageMapper.toEntity(garageDTO)));
     }
+
     @PreAuthorize("hasAuthority('GET_GARAGE')")
     public GarageDTO getGarage(Integer id){
         return garageMapper.toDTO(garageLogic.getGarage(id));
     }
+
+
     @PreAuthorize("hasAuthority('DELETE_GARAGE')")
     public void deleteGarage(Integer id){
         garageLogic.deleteGarage(id);

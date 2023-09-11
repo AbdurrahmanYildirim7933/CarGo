@@ -30,6 +30,7 @@ public class   GarageLogic {
 
     @Autowired
     GarageRepository garageRepository;
+
     @Autowired
     CarRepository carRepository;
     @Autowired

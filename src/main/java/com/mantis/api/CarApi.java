@@ -54,14 +54,20 @@ public class CarApi {
     public ResponseEntity<List<CarImageDTO>> uploadImage(@RequestBody List<CarImageDTO> carImageDTOList,@PathVariable(name = "id", required = false) Integer id) throws IOException {
         return ResponseEntity.ok(carService.uploadImages(carImageDTOList,id));
     }
+    @DeleteMapping("/delete-images/{ids}")
+    public ResponseEntity<String> deleteImage(@PathVariable List<Integer> ids){
+        carService.deleteImages(ids);
+        return ResponseEntity.ok("Images/Image Deleted Succesfully");
+    }
     @PostMapping("/{id}/create-car")
     public ResponseEntity<CarDTO> createGarage(@RequestBody CarDTO carDTO,@PathVariable Integer id) {
         return ResponseEntity.ok(carService.createCar(id,carDTO));
     }
     @DeleteMapping("/delete-car/{id}")
-    public ResponseEntity<String> deleteGarage(@PathVariable Integer id){
-        carService.deleteGarage(id);
-        return ResponseEntity.ok("Garage has been deleted succesfully");
+    public ResponseEntity<CarDTO> deleteGarage(@PathVariable Integer id){
+        CarDTO deletedCar = carService.getCar(id);
+        carService.deleteCar(id);
+        return ResponseEntity.ok(null);
     }
 
     @PatchMapping(path="/update-car/{id}",consumes = "application/json-patch+json")

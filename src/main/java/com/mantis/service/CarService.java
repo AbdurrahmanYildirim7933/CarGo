@@ -37,13 +37,10 @@ public class CarService {
 
     ObjectMapper objectMapper = new ObjectMapper();
     public CarDTO createCar(Integer id,CarDTO carDTO) {
-        return  carMapper.toDTO(carLogic.createCar(carMapper.toEntity(carDTO),id));
+        return carMapper.toDTO(carLogic.createCar(carMapper.toEntity(carDTO), id));
     }
-    public CarDTO getGarage(Integer id){
-        return carMapper.toDTO(carLogic.getCar(id));
-    }
-    public void deleteGarage(Integer id){
-        carLogic.deleteGarage(id);
+    public void deleteCar(Integer id){
+        carLogic.deleteCar(id);
     }
     public CarDTO updateCar(Integer id, JsonPatch patch) throws JsonPatchException, JsonProcessingException {
         CarDTO carDTO = getCar(id);
@@ -53,6 +50,11 @@ public class CarService {
     public List<CarImageDTO> uploadImages(List<CarImageDTO> carImageDTOList, Integer carId) throws IOException {
         return  carMapper.imagesToListDTO(carLogic.uploadImage(carMapper.imagesToListEntity(carImageDTOList),carId));
     }
+
+    public void deleteImages(List<Integer> imagesIDs) {
+        carLogic.deleteImages(imagesIDs);
+    }
+
 
     public List<CarImageDTO> getImagesByCar(Integer id){
         return carMapper.imagesToListDTO(carLogic.getImagesByCar(id));
