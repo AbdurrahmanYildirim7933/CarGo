@@ -72,6 +72,10 @@ public class   GarageLogic {
         garageRepository.save(oldGarage);
         return oldGarage;
     }
+
+    public List<Garage> getGarages() {
+        return garageRepository.findAll();
+    }
     /*public Page<Garage> getGaragesByUserID(GarageFilterDTO garageFilterDTO,Pageable pageable) {
         if (ObjectUtils.isEmpty(authorizationLogic.getSession().getId())) {
             throw new RuntimeException("ID cannot be null");

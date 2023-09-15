@@ -16,14 +16,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+
 import org.springframework.data.web.JsonPath;
+import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
+@Controller
 @RequestMapping("api/v1/garage")
 public class GarageApi {
 
@@ -78,7 +81,8 @@ public class GarageApi {
         return  ResponseEntity.ok(garagesModel);
     }
 
-
-
-
+    @QueryMapping
+    public List<GarageDTO> getAllGarages(){
+        return garageService.getGarages();
+    }
 }

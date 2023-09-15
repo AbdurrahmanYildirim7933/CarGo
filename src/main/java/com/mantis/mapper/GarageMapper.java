@@ -39,4 +39,8 @@ public class GarageMapper {
         return garageDTOS.stream().map(g->toEntity(g)).collect(Collectors.toList());
     }
 
+    public List<GarageDTO> dtoList(List<Garage> garageEntities){
+
+        return garageEntities.stream().map(g->toDTO(g)).collect(Collectors.toList());
+    }
 }

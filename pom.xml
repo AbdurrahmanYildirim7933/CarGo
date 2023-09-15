@@ -58,6 +58,10 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-graphql</artifactId>
+		</dependency>
 
 		<!--<dependency>&lt;!&ndash; security &ndash;&gt;
 			<groupId>org.springframework.security</groupId>
@@ -120,7 +124,6 @@
 			<artifactId>postgresql</artifactId>
 			<version>42.6.0</version>
 		</dependency>
-
 		<!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-oauth2-resource-server -->
 		<dependency>
 			<groupId>org.springframework.security</groupId>
@@ -128,8 +131,13 @@
 			<version>6.1.1</version>
 		</dependency>
 
-	</dependencies>
+		<dependency>
+			<groupId>com.graphql-java</groupId>
+			<artifactId>graphql-java-tools</artifactId>
+			<version>5.2.4</version>
+		</dependency>
 
+	</dependencies>
 	<build>
 		<plugins>
 			<plugin>
@@ -138,5 +146,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
 </project>

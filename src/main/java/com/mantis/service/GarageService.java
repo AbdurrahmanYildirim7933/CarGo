@@ -74,4 +74,8 @@ public class GarageService {
         queryModel.setPages( garageFilterLogic.searchGarageByTerm(garageFilterDTO,pageable).getTotalPages());
         return queryModel;
     }
+
+    public List<GarageDTO> getGarages() {
+        return garageMapper.dtoList(garageLogic.getGarages());
+    }
 }
