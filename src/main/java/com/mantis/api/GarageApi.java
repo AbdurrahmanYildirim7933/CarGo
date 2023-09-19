@@ -18,7 +18,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 
 import org.springframework.data.web.JsonPath;
+import org.springframework.graphql.data.method.annotation.Argument;
+import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
+import org.springframework.graphql.data.method.annotation.SchemaMapping;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -35,10 +38,10 @@ public class GarageApi {
 
     ObjectMapper objectMapper = new ObjectMapper();
 
-    @PostMapping("/create-garage")
-    public ResponseEntity<GarageDTO> createGarage(@RequestBody GarageDTO garageDTO) {
-        GarageDTO createdGarageDTO = garageService.createGarage(garageDTO);
-        return ResponseEntity.ok(createdGarageDTO);
+    @MutationMapping(name = "createGarage")
+    public GarageDTO createGarage(@Argument(name = "dto") GarageDTO garageDTO) {
+        GarageDTO createdGarage = garageService.createGarage(garageDTO);
+        return createdGarage;
     }
 
 
@@ -81,7 +84,7 @@ public class GarageApi {
         return  ResponseEntity.ok(garagesModel);
     }
 
-    @QueryMapping
+    @QueryMapping("/garages")
     public List<GarageDTO> getAllGarages(){
         return garageService.getGarages();
     }

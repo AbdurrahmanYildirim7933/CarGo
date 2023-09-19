@@ -14,7 +14,7 @@ public class AuthorizationLogic {
     @Autowired
     private UserRepository userRepository;
 
-    SessionDTO session;
+    private SessionDTO session;
 
     private JwtTokenUtil jwtTokenUtil = new JwtTokenUtil();
 

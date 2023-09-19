@@ -25,7 +25,7 @@ public class GarageMapper {
         _garage.setId(garageDTO.getId());
         _garage.setName(garageDTO.getName());
         if(garageDTO.getOwner()!=null){
-            _garage.setOwner(userMapper.toEntity(garageDTO.getOwner()));
+        _garage.setOwner(userMapper.toEntity(garageDTO.getOwner()));
         }
         return _garage;
     }

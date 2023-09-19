@@ -1,8 +1,28 @@
 type Query{
     getAllGarages :[Garage]
+
+}
+
+type Mutation{
+    createGarage(dto:GarageDTO) : Garage
+    updateGarage(id:Int) : Garage
+    deleteGarage(id:Int) :Garage
+    getGarages(dto:GarageDTO):[Garage]
 }
 
 type Garage{
+    id:Int!
+    owner:User!
+    name:String!
+
+}
+
+type User{
     id:Int
+    name:String
+    lastName:String
+}
+
+input GarageDTO{
     name:String
 }

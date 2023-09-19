@@ -33,7 +33,9 @@ public class SecurityConfig{
                 .authorizeHttpRequests(auth ->
                         auth.requestMatchers("api/v1/auth/login",
                                         "api/v1/user/create-user","api/v1/email/**","api/v1/auth/me",
-                                        "api/v1/user/user-verify-by-code","api/v1/shop/create-shop","api/v1/shop/get-shop","/graphiql/**","/graphql/**")
+                                        "api/v1/user/user-verify-by-code","api/v1/shop/create-shop",
+                                        "api/v1/shop/get-shop","/graphiql/**","/graphql/**",
+                                        "graphiql//garages")
                                 .permitAll().anyRequest().authenticated()).addFilterBefore(
                         authenticationFilter, BearerTokenAuthenticationFilter.class
                 ).build();
