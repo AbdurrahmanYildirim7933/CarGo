@@ -68,20 +68,20 @@ public class GarageApi {
         return ResponseEntity.ok(garageService.updateGarage(id,patchedGarage));
     }
 
-    @PostMapping("/garages-by-active-user")
-    public ResponseEntity<QueryModel> getGarages(
-            @RequestParam(name = "page",defaultValue = "0") Integer page,
-            @RequestParam(name = "size",defaultValue = "10") Integer size,
-            @RequestParam(defaultValue = "name",required = false) String sortBy,
-            @RequestParam(name = "sort",defaultValue = "ASC",required = false) String sortDirection,
-            @RequestBody GarageFilterDTO garageFilterDTO){
+    @MutationMapping(name = "getGarages")
+    public QueryModel getGarages(
+            @Argument(name = "page") Integer page,
+            @Argument(name = "size") Integer size,
+            @Argument(name = "sortBy") String sortBy,
+            @Argument(name = "sortDirection") String sortDirection,
+            @Argument(name = "garageFilterDTO") GarageFilterDTO garageFilterDTO){
         Sort.Direction direction = Sort.Direction.ASC;
 
         if (sortDirection.equalsIgnoreCase("DESC")) {
             direction = Sort.Direction.DESC;
         }
         QueryModel garagesModel = garageService.getGaragesByUserId(garageFilterDTO,PageRequest.of(page,size, direction, sortBy));
-        return  ResponseEntity.ok(garagesModel);
+        return  garagesModel;
     }
 
     @QueryMapping("/garages")

@@ -7,7 +7,13 @@ type Mutation{
     createGarage(dto:GarageDTO) : Garage
     updateGarage(id:Int) : Garage
     deleteGarage(id:Int) :Garage
-    getGarages(dto:GarageDTO):[Garage]
+    getGarages(page:Int,size:Int,sortBy:String,sortDirection:String,garageFilterDTO:GarageFilterDTO):QueryModel
+}
+
+type QueryModel{
+    garages:[Garage]
+    count:Int
+    pages:Int
 }
 
 type Garage{
@@ -24,5 +30,10 @@ type User{
 }
 
 input GarageDTO{
+    name:String
+}
+
+input GarageFilterDTO{
+    id:Int,
     name:String
 }
